@@ -4,6 +4,8 @@ A modern, responsive web application that allows you to open multiple URLs simul
 
 ## Features
 
+# URL Bulk Opener[ ]
+
 - **Bulk URL Opening**: Open multiple URLs at once in new tabs/windows
 - **URL Validation**: Validate URLs before opening to ensure they're properly formatted
 - **Selective Opening**: Choose which URLs to open with checkboxes
