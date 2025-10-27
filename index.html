@@ -46,11 +46,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
     <!-- Favicon -->
-    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> -->
-    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
-    <!-- <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"> -->
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
-    <!-- <link rel="manifest" href="/site.webmanifest"> -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23667eea'/%3E%3Cpath d='M35 40c0-2.8 2.2-5 5-5h20c2.8 0 5 2.2 5 5v20c0 2.8-2.2 5-5 5H40c-2.8 0-5-2.2-5-5V40z' fill='white'/%3E%3Cpath d='M45 50h10M50 45v10' stroke='%23667eea' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23667eea'/%3E%3Cpath d='M35 40c0-2.8 2.2-5 5-5h20c2.8 0 5 2.2 5 5v20c0 2.8-2.2 5-5 5H40c-2.8 0-5-2.2-5-5V40z' fill='white'/%3E%3Cpath d='M45 50h10M50 45v10' stroke='%23667eea' stroke-width='2' fill='none'/%3E%3C/svg%3E">
     
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -129,7 +126,7 @@
             </section>
 
             <!-- URL Input Section -->
-            <div class="url-input-section">
+            <div id="urlInputSection" class="url-input-section">
                 <div class="input-container">
                     <textarea 
                         id="urlInput" 
@@ -337,6 +334,91 @@
                             <i class="fas fa-tools" aria-hidden="true"></i>
                             <h4>Web Development</h4>
                             <p>Test multiple websites during development</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ready to Start Section -->
+                <div class="ready-to-start-section">
+                    <h3>Ready to start Url Bulk Opener ?</h3>
+                    <button class="btn btn-primary btn-large try-it-btn" onclick="scrollToUrlInput()">
+                        Try It Now
+                    </button>
+                </div>
+                
+                <!-- FAQ Section -->
+                <div class="faq-section">
+                    <h2 class="faq-heading">Frequently Asked Questions</h2>
+                    
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>1. What is Urlbulkopener.com?</span>
+                                <i class="fas fa-chevron-down faq-arrow"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>It's a simple online tool that helps you open a bunch of website links all at once. You just paste your list of URLs, hit the paste button, and they all open in new tabs instantly.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>2. Do I need to download or sign up for anything?</span>
+                                <i class="fas fa-chevron-down faq-arrow"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Nope, nothing like that. You don't need to install software or create an account. Everything works right in your browser. Just open the website, paste your links, and you're good to go.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>3. Is it safe to use this tool?</span>
+                                <i class="fas fa-chevron-down faq-arrow"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, it's completely safe. The tool doesn't save or track anything you open. Everything happens on your own browser — your data stays with you. We don't store links, collect information, or ask for access to your files.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>4. How many links can I open at once?</span>
+                                <i class="fas fa-chevron-down faq-arrow"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>That depends on your browser and computer, but most people can open 50 to 100 links without a problem. If you try to open too many, your browser might slow down — so it's best to go in batches if you've got a long list.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>5. Who uses this kind of tool?</span>
+                                <i class="fas fa-chevron-down faq-arrow"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>A lot of people actually. SEO folks use it to check backlinks, marketers open campaign pages, developers test URLs, and even researchers use it to go through multiple sources at once. Basically, anyone who works with a lot of links will find it useful.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>6. Can I use it on my phone or tablet?</span>
+                                <i class="fas fa-chevron-down faq-arrow"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, it works on mobile and tablet too. You can use it from Chrome, Safari, or any browser on your phone and tablet. It's designed to be simple to use for any device.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFAQ(this)">
+                                <span>7. Is it really free to use?</span>
+                                <i class="fas fa-chevron-down faq-arrow"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes, 100% free. There are no hidden charges or paid plans. It's just a quick, free, and safe tool you can use anytime you need to open multiple links at once.</p>
+                            </div>
                         </div>
                     </div>
                 </div>

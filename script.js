@@ -758,3 +758,43 @@ document.addEventListener('visibilitychange', () => {
 
 // Export for global access
 window.URLBulkOpener = URLBulkOpener;
+
+// Function to scroll to URL input section
+function scrollToUrlInput() {
+    const urlInputSection = document.getElementById('urlInputSection');
+    if (urlInputSection) {
+        urlInputSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Focus on the textarea after scrolling
+        setTimeout(() => {
+            const urlInput = document.getElementById('urlInput');
+            if (urlInput) {
+                urlInput.focus();
+            }
+        }, 500);
+    }
+}
+
+// Function to toggle FAQ items
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    const faqAnswer = faqItem.querySelector('.faq-answer');
+    const faqQuestion = element;
+    const arrow = element.querySelector('.faq-arrow');
+    
+    // Toggle active class
+    faqQuestion.classList.toggle('active');
+    faqAnswer.classList.toggle('active');
+    
+    // Close other FAQ items
+    const allFaqItems = document.querySelectorAll('.faq-item');
+    allFaqItems.forEach(item => {
+        if (item !== faqItem) {
+            item.querySelector('.faq-question').classList.remove('active');
+            item.querySelector('.faq-answer').classList.remove('active');
+        }
+    });
+}
