@@ -17,7 +17,9 @@ class URLBulkOpener {
         // Input elements
         this.urlInput = document.getElementById('urlInput');
         this.submitBtn = document.getElementById('submitBtn');
-        this.pasteBtn = document.getElementById('pasteBtn');
+		this.pasteBtn = document.getElementById('pasteBtn');
+		this.urlInputSection = document.getElementById('urlInputSection');
+		this.inputContainer = document.querySelector('#urlInputSection .input-container');
         
         // Display elements
         this.urlList = document.getElementById('urlList');
@@ -25,7 +27,8 @@ class URLBulkOpener {
         this.urlItems = document.getElementById('urlItems');
         
         // Action buttons
-        this.openSelectedBtn = document.getElementById('openSelectedBtn');
+		this.openSelectedBtn = document.getElementById('openSelectedBtn');
+		this.actionButtons = document.querySelector('.action-buttons');
         
         // Warning elements removed
         
@@ -416,6 +419,21 @@ class URLBulkOpener {
         // Reset the index when new URLs are loaded
         this.currentUrlIndex = 0;
 
+		// Reposition results: place URL list and action buttons right below input container
+		if (this.urlInputSection && this.inputContainer && this.urlList) {
+			const afterInput = this.inputContainer.nextSibling;
+			this.urlInputSection.insertBefore(this.urlList, afterInput);
+			if (this.actionButtons) {
+				if (this.urlList.nextSibling) {
+					this.urlInputSection.insertBefore(this.actionButtons, this.urlList.nextSibling);
+				} else {
+					this.urlInputSection.appendChild(this.actionButtons);
+				}
+			}
+		}
+
+		// Keep original layout; do not reposition elements
+
         // Show all URLs (both valid and invalid) for better user experience
         this.urls.forEach(urlObj => {
             const urlItem = this.createUrlItem(urlObj);
@@ -425,12 +443,12 @@ class URLBulkOpener {
         // Update selected URLs after creating the list
         this.updateSelectedUrls();
 
-        // Make sure the URL list is visible
+		// Make sure the URL list is visible
         this.urlList.classList.remove('hidden');
         
-        // Scroll to the URL list to make it more visible
+		// Scroll to the URL list to make it more visible (align to top)
         setTimeout(() => {
-            this.urlList.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+			this.urlList.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
     }
 
