@@ -192,6 +192,32 @@ body {
     }
 }
 
+/* About page headings */
+.about-page-title {
+    text-align: center;
+    font-weight: 800;
+    font-size: 2.4rem;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+}
+
+.about-page-section h3 {
+    font-weight: 800;
+    font-size: 2rem;   /* further enlarged */
+    line-height: 1.3;
+    margin: 1.2rem 0 0.9rem; /* a bit more breathing */
+}
+
+/* Make 'Key Features' heading a bit larger than others */
+.features-heading {
+    font-size: 2.2rem;
+}
+
+@media (max-width: 768px) {
+    .about-page-title { font-size: 2rem; }
+    .about-page-section h3 { font-size: 1.7rem; }
+}
+
 .nav-link {
     text-decoration: none;
     color: #ecf0f1;
@@ -223,7 +249,7 @@ body {
     width: 100%;
 }
 
-/* Main Content */
+/* Main container for content */
 .main-content {
     flex: 1;
     background: rgba(255, 255, 255, 0.95);
@@ -235,6 +261,51 @@ body {
     width: calc(100% - 40px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* About page subtle alignment and typography tweaks */
+.about-main {
+    background: #ffffff; /* solid white for clarity */
+    padding: 2.5rem 2.5rem 3.5rem; /* slightly reduced padding */
+    min-height: 85vh; /* make page visually taller */
+    max-width: 1200px; /* narrower white area */
+    width: calc(100% - 60px); /* increase outer margins a bit */
+    border-radius: 10px;
+}
+
+.about-page-section .about-page-container {
+    max-width: 760px;          /* narrow, readable column */
+    width: 100%;
+    margin: 0 auto;            /* centered in white area */
+    text-align: left;
+    padding: 0 8px;            /* small side breathing */
+}
+
+/* Push content further down within the white area */
+.about-page-section {
+    padding-bottom: 2.5rem;
+}
+
+.about-page-section p {
+    font-size: 1.18rem; /* slightly larger */
+    line-height: 1.85;
+}
+
+/* Top-right Home link row inside content */
+.content-top-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .about-page-section .about-page-container {
+        margin-left: 0; /* keep centered on mobile */
+    }
+    .about-page-section p {
+        font-size: 1.1rem;
+        line-height: 1.75;
+    }
 }
 
 /* Hero Section */

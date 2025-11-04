@@ -738,6 +738,17 @@ document.addEventListener('DOMContentLoaded', () => {
     new URLBulkOpener();
 });
 
+// Refresh when clicking the site title in the header
+document.addEventListener('DOMContentLoaded', () => {
+    const siteTitle = document.getElementById('siteTitle');
+    if (siteTitle) {
+        siteTitle.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.reload();
+        });
+    }
+});
+
 // Add some example URLs for demonstration
 document.addEventListener('DOMContentLoaded', () => {
     const exampleUrls = [
