@@ -5,6 +5,83 @@
     box-sizing: border-box;
 }
 
+/* Contact page: red heading like screenshot */
+.contact-page .about-page-title {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Contact page: underlined form fields */
+.contact-underline-form { margin-top: 1.25rem; }
+.contact-underline-form .cu-field { margin: 0 0 1.1rem; }
+.contact-underline-form .cu-field label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #e5e7eb;
+    margin-bottom: 0.25rem;
+}
+.contact-underline-form .cu-field label i { opacity: 0.9; }
+.contact-underline-form input,
+.contact-underline-form textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.35);
+    color: #e5e7eb;
+    padding: 0.6rem 0;
+    font-size: 1rem;
+    outline: none;
+}
+.contact-underline-form input::placeholder,
+.contact-underline-form textarea::placeholder { color: rgba(229,231,235,0.7); }
+.contact-underline-form input:focus,
+.contact-underline-form textarea:focus {
+    border-bottom-color: #ef4444;
+}
+.contact-underline-form .cu-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.25rem;
+}
+.btn.btn-danger {
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+}
+.btn.btn-danger:hover { background: #dc2626; }
+
+/* Contact page on white content area: use dark text for visibility */
+.contact-page .about-main { background: #ffffff; }
+.contact-page .contact-underline-form .cu-field label { color: #2c3e50; }
+.contact-page .contact-underline-form input,
+.contact-page .contact-underline-form textarea {
+    color: #2c3e50;
+    border-bottom-color: rgba(44, 62, 80, 0.35);
+}
+.contact-page .contact-underline-form input::placeholder,
+.contact-page .contact-underline-form textarea::placeholder { color: rgba(44,62,80,0.55); }
+.contact-page .contact-underline-form input:focus,
+.contact-page .contact-underline-form textarea:focus { border-bottom-color: #667eea; }
+
+/* Contact page: make primary button blue */
+.contact-page .btn.btn-primary {
+    background: #3b82f6;
+    border: 1px solid #60a5fa;
+    color: #fff;
+}
+.contact-page .btn.btn-primary:hover {
+    background: #2563eb;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.7;
@@ -15,6 +92,38 @@ body {
     padding: 0;
     background-attachment: fixed;
     font-size: 16px;
+}
+
+/* Footer */
+.footer {
+    background: #1f2937;
+    color: #e5e7eb;
+    padding: 2rem 0 0;
+    margin-top: 2rem;
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+.footer-brand { padding-left: 0; text-align: center; }
+.footer-logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 0.5rem; }
+.footer-site-name { font-weight: 900; font-size: 1.8rem; letter-spacing: 0.2px; }
+.footer-tagline { color: #cbd5e1; font-size: 0.95rem; max-width: 520px; text-align: center; }
+.footer-heading { font-weight: 800; font-size: 1rem; color: #f3f4f6; margin-bottom: 0.75rem; }
+.footer-list { list-style: none; padding: 0; margin: 0; }
+.footer-list li { margin: 0.35rem 0; color: #cbd5e1; }
+.footer a { color: #bfdbfe; text-decoration: none; }
+.footer a:hover { color: #93c5fd; text-decoration: underline; }
+.footer-bottom { margin-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.footer-bottom .main-container { padding: 0.9rem 0; }
+.footer-bottom p { color: #cbd5e1; font-size: 0.95rem; }
+
+@media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .footer-site-name { font-size: 1.6rem; }
+    .footer-brand { padding-left: 0; text-align: center; }
 }
 
 /* Main container for content */
@@ -126,6 +235,7 @@ body {
     background-clip: text;
     font: inherit;
     letter-spacing: inherit;
+    cursor: pointer;
 }
 
 .logo:hover {

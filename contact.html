@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - URLBulkOpener</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="contact-page">
+  <header class="header">
+    <div class="main-container">
+      <div class="logo">
+        <h2><a href="index.html" style="color: inherit; text-decoration: none;">URL Bulk Opener</a></h2>
+      </div>
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="nav">
+        <a href="index.html#how-to-use" class="nav-link">How to Use</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content about-main">
+    <section class="about-page-section">
+      <div class="about-page-container">
+        <div class="content-top-actions"><a href="index.html" class="content-home-link" aria-label="Home"><i class="fas fa-home"></i> Home</a></div>
+        <h2 class="about-page-title">Contact Us</h2>
+        <p style="text-align:center; margin-bottom: 1.25rem;">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+
+        <section class="contact-underline-form">
+          <div class="cu-field">
+            <label><i class="fas fa-envelope"></i> Email Address</label>
+            <input type="email" placeholder="Enter your email address" aria-label="Email Address" required />
+          </div>
+          <div class="cu-field">
+            <label><i class="fas fa-link"></i> Link</label>
+            <input type="url" placeholder="Please enter link that have problem" aria-label="Link" />
+          </div>
+          <div class="cu-field">
+            <label><i class="fas fa-comment-dots"></i> Message</label>
+            <textarea rows="6" placeholder="Write your message here..." aria-label="Message" required></textarea>
+          </div>
+          <div class="cu-actions">
+            <button class="btn btn-primary" type="button"><i class="fas fa-paper-plane"></i> Send Message</button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
