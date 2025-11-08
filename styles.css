@@ -5,6 +5,9 @@
     box-sizing: border-box;
 }
 
+/* Make page take full height for sticky footer */
+html, body { height: 100%; }
+
 /* Contact page: red heading like screenshot */
 .contact-page .about-page-title {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -92,6 +95,8 @@ body {
     padding: 0;
     background-attachment: fixed;
     font-size: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Footer */
@@ -422,10 +427,15 @@ body {
 .about-main {
     background: #ffffff; /* solid white for clarity */
     padding: 2.5rem 2.5rem 3.5rem; /* slightly reduced padding */
-    min-height: 85vh; /* make page visually taller */
+    min-height: auto; /* let height be only as much as content */
     max-width: 1200px; /* narrower white area */
     width: calc(100% - 60px); /* increase outer margins a bit */
     border-radius: 10px;
+}
+
+/* On Contact page, make white area fill the display height */
+body.contact-page .about-main {
+    min-height: 85vh;
 }
 
 .about-page-section .about-page-container {
@@ -435,6 +445,9 @@ body {
     text-align: left;
     padding: 0 8px;            /* small side breathing */
 }
+
+/* On About page, prevent main from stretching full height */
+body.aboutus-page .main-content { flex: 0; }
 
 /* On the privacy page, expand content to fill more of the white area */
 .privacy-page .about-page-section .about-page-container {
