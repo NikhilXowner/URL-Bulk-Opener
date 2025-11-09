@@ -31,21 +31,23 @@
         <p style="text-align:center; margin-bottom: 1.25rem;">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
 
         <section class="contact-underline-form">
-          <div class="cu-field">
-            <label><i class="fas fa-envelope"></i> Email Address</label>
-            <input type="email" placeholder="Enter your email address" aria-label="Email Address" required />
-          </div>
-          <div class="cu-field">
-            <label><i class="fas fa-link"></i> Link</label>
-            <input type="url" placeholder="Please enter link that have problem" aria-label="Link" />
-          </div>
-          <div class="cu-field">
-            <label><i class="fas fa-comment-dots"></i> Message</label>
-            <textarea rows="6" placeholder="Write your message here..." aria-label="Message" required></textarea>
-          </div>
-          <div class="cu-actions">
-            <button class="btn btn-primary" type="button"><i class="fas fa-paper-plane"></i> Send Message</button>
-          </div>
+          <form id="contactForm">
+            <div class="cu-field">
+              <label for="contactEmail"><i class="fas fa-envelope"></i> Email Address</label>
+              <input id="contactEmail" name="email" type="email" placeholder="Enter your email address" aria-label="Email Address" required />
+            </div>
+            <div class="cu-field">
+              <label for="contactLink"><i class="fas fa-link"></i> Link</label>
+              <input id="contactLink" name="link" type="url" placeholder="Please enter link that have problem" aria-label="Link" />
+            </div>
+            <div class="cu-field">
+              <label for="contactMessage"><i class="fas fa-comment-dots"></i> Message</label>
+              <textarea id="contactMessage" name="message" rows="6" placeholder="Write your message here..." aria-label="Message" required></textarea>
+            </div>
+            <div class="cu-actions">
+              <button id="contactSubmit" class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+            </div>
+          </form>
         </section>
       </div>
     </section>

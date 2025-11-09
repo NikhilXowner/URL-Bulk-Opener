@@ -870,3 +870,26 @@ function toggleFAQ(element) {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    const emailInput = document.getElementById('contactEmail');
+    const linkInput = document.getElementById('contactLink');
+    const msgInput = document.getElementById('contactMessage');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const from = (emailInput && emailInput.value ? emailInput.value : '').trim();
+        const link = (linkInput && linkInput.value ? linkInput.value : '').trim();
+        const message = (msgInput && msgInput.value ? msgInput.value : '').trim();
+        const to = 'urlbulkopener@urlbulkopener.com';
+        const subject = encodeURIComponent(`New message from ${from || 'website visitor'}`);
+        const parts = [];
+        if (from) parts.push(`From: ${from}`);
+        if (link) parts.push(`Link: ${link}`);
+        if (message) parts.push(`Message:\n${message}`);
+        const body = encodeURIComponent(parts.join('\n\n'));
+        const mailto = `mailto:${to}?subject=${subject}&body=${body}`;
+        window.location.href = mailto;
+    });
+});
