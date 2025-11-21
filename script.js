@@ -602,42 +602,48 @@ class URLBulkOpener {
 
     // New: Open all remaining selected URLs in separate tabs
     openAllSelectedUrls() {
-        // Refresh selection
-        this.updateSelectedUrls();
-
-        if (this.selectedUrls.length === 0) {
-            this.showNotification('No URLs selected! Please select some URLs by checking the boxes.', 'warning');
+        // Check if there are any valid URLs
+        if (this.validUrls.length === 0) {
+            this.showNotification('No valid URLs to open! Please submit some URLs first.', 'warning');
             return false;
         }
 
-        const remaining = this.selectedUrls.slice(this.currentUrlIndex);
-        if (remaining.length === 0) {
-            this.showNotification('All selected URLs have already been opened!', 'info');
+        // Check if popups are blocked
+        this.checkPopupBlocker();
+        if (this.isPopupBlocked) {
+            this.showNotification('Popup blocker detected! Please allow popups for this site to open all URLs.', 'error');
             return false;
         }
 
-        // Try to open each remaining URL in a new background tab
+        // Open all valid URLs in new tabs
         let openedCount = 0;
-        remaining.forEach((urlObj, idx) => {
+        this.validUrls.forEach(urlObj => {
             try {
-                const w = window.open(urlObj.processed, '_blank', 'noopener,noreferrer');
-                if (w) {
+                const newWindow = window.open(urlObj.processed, '_blank', 'noopener,noreferrer');
+                if (newWindow) {
                     openedCount++;
-                    // Attempt to keep focus on current window
-                    setTimeout(() => { try { w.blur(); window.focus(); } catch (e) {} }, 0);
+                    // Try to keep focus on the current window
+                    setTimeout(() => { 
+                        try { 
+                            newWindow.blur(); 
+                            window.focus(); 
+                        } catch (e) {} 
+                    }, 0);
                 }
             } catch (e) {
-                // ignore individual failures to keep loop going
+                console.error('Error opening URL:', e);
             }
         });
 
-        this.currentUrlIndex = this.selectedUrls.length; // mark as all opened
+        // Update UI
+        this.currentUrlIndex = this.validUrls.length;
         this.updateActionButtons();
 
+        // Show appropriate notification
         if (openedCount > 0) {
-            this.showNotification(`Opened ${openedCount} tab(s). If some tabs didn't open, please allow popups for this site.`, 'success');
+            this.showNotification(`Successfully opened ${openedCount} URL(s) in new tabs.`, 'success');
         } else {
-            this.showNotification('Popup blocker prevented opening tabs. Please allow popups for this site and try again.', 'warning');
+            this.showNotification('Failed to open any URLs. Please check your popup settings and try again.', 'error');
         }
 
         return false;
