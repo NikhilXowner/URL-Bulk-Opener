@@ -5,6 +5,73 @@
     box-sizing: border-box;
 }
 
+/* Blog Page Styles */
+.blog-section {
+    padding: 4rem 0;
+    background: #f0f7ff;
+    min-height: 50vh;
+}
+
+.blog-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.coming-soon {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+.coming-soon i {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.coming-soon h2 {
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.coming-soon p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+/* Active state for nav links */
+.nav-link.active {
+    color: #667eea;
+    font-weight: 600;
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #667eea;
+    border-radius: 2px;
+}
+
 /* Make page take full height for sticky footer */
 html, body { height: 100%; }
 

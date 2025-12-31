@@ -51,12 +51,16 @@ class URLBulkOpener {
             e.preventDefault();
             this.handlePasteButton();
         });
-        this.openSelectedBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.openAllSelectedUrls();
-            return false;
-        });
+        // Open Selected URLs button event
+        if (this.openSelectedBtn) {
+            this.openSelectedBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Open All URLs button clicked');
+                this.openSelectedUrls();
+                return false;
+            });
+        }
         
         // Browser instruction tabs removed
         
@@ -342,69 +346,49 @@ class URLBulkOpener {
             return;
         }
 
-        this.submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Validating...';
-        this.submitBtn.disabled = true;
-
-        let validationPromises = this.urls.map((urlObj, index) => 
-            this.validateSingleUrl(urlObj.processed)
-                .then(isValid => {
-                    this.urls[index].isValid = isValid;
-                    return { index, isValid };
-                })
-                .catch(() => {
-                    this.urls[index].isValid = false;
-                    return { index, isValid: false };
-                })
-        );
-
-        Promise.all(validationPromises).then(() => {
-            this.validUrls = this.urls.filter(url => url.isValid);
-            this.updateUrlList();
-            this.updateActionButtons();
-            
-            this.submitBtn.innerHTML = 'Submit';
-            this.submitBtn.disabled = false;
-            
-            const validCount = this.validUrls.length;
-            const totalCount = this.urls.length;
-            
-            if (validCount > 0) {
-                this.showNotification(`Found ${validCount} valid URLs! You can now click on individual URLs to open them, or use "Open All" button.`, 'success');
-            } else {
-                this.showNotification('No valid URLs found. Please check your input and try again.', 'warning');
-            }
+        // Validate all URLs synchronously (fast format check only - no network delay)
+        this.urls.forEach((urlObj) => {
+            urlObj.isValid = this.validateSingleUrl(urlObj.processed);
         });
+
+        this.validUrls = this.urls.filter(url => url.isValid);
+        this.updateUrlList();
+        this.updateActionButtons();
+        
+        const validCount = this.validUrls.length;
+        const totalCount = this.urls.length;
+        
+        if (validCount > 0) {
+            this.showNotification(`Found ${validCount} valid URLs! You can now click on individual URLs to open them, or use "Open All" button.`, 'success');
+        } else {
+            this.showNotification('No valid URLs found. Please check your input and try again.', 'warning');
+        }
     }
 
     validateSingleUrl(url) {
-        return new Promise((resolve) => {
-            // Basic URL format validation
-            try {
-                const urlObj = new URL(url);
-                if (!['http:', 'https:'].includes(urlObj.protocol)) {
-                    resolve(false);
-                    return;
-                }
-                
-                // Additional validation for common patterns
-                if (urlObj.hostname.length === 0) {
-                    resolve(false);
-                    return;
-                }
-                
-                // Check for common valid domain patterns
-                const validDomainPattern = /^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$/;
-                if (!validDomainPattern.test(urlObj.hostname)) {
-                    resolve(false);
-                    return;
-                }
-                
-                // Consider most properly formatted URLs as valid
-                resolve(true);
-            } catch (e) {
-                resolve(false);
+        // Fast synchronous URL format validation (no network check)
+        try {
+            const urlObj = new URL(url);
+            if (!['http:', 'https:'].includes(urlObj.protocol)) {
+                return false;
             }
-        });
+            
+            // Additional validation for common patterns
+            if (urlObj.hostname.length === 0) {
+                return false;
+            }
+            
+            // Check for common valid domain patterns
+            const validDomainPattern = /^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$/;
+            if (!validDomainPattern.test(urlObj.hostname)) {
+                return false;
+            }
+            
+            // Consider most properly formatted URLs as valid
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 
     updateUrlList() {
@@ -442,6 +426,22 @@ class URLBulkOpener {
 
         // Update selected URLs after creating the list
         this.updateSelectedUrls();
+        
+        // Re-attach event listener to button (in case it was recreated)
+        if (this.openSelectedBtn) {
+            // Remove old listener and add new one
+            const newBtn = this.openSelectedBtn.cloneNode(true);
+            this.openSelectedBtn.parentNode.replaceChild(newBtn, this.openSelectedBtn);
+            this.openSelectedBtn = newBtn;
+            
+            this.openSelectedBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Open All URLs button clicked');
+                this.openSelectedUrls();
+                return false;
+            });
+        }
 
 		// Make sure the URL list is visible
         this.urlList.classList.remove('hidden');
@@ -499,24 +499,25 @@ class URLBulkOpener {
     updateActionButtons() {
         const hasValidUrls = this.validUrls.length > 0;
         const hasSelectedUrls = this.selectedUrls.length > 0;
-        const remainingUrls = this.selectedUrls.length - this.currentUrlIndex;
+        // Use selected URLs if available, otherwise use all valid URLs
+        const urlsToOpen = hasSelectedUrls ? this.selectedUrls : this.validUrls;
+        const remainingUrls = urlsToOpen.length - this.currentUrlIndex;
         
-        this.openSelectedBtn.disabled = !hasSelectedUrls;
-        
-        if (hasValidUrls) {
-            this.openSelectedBtn.classList.remove('hidden');
-            // Update button text to show progress
-            if (hasSelectedUrls) {
+        // Enable button if there are valid URLs to open
+        if (this.openSelectedBtn) {
+            this.openSelectedBtn.disabled = !hasValidUrls || remainingUrls <= 0;
+            
+            if (hasValidUrls) {
+                this.openSelectedBtn.classList.remove('hidden');
+                // Update button text to show progress
                 if (remainingUrls > 0) {
                     this.openSelectedBtn.innerHTML = `<i class="fas fa-external-link-alt"></i> Open All URLs (${remainingUrls} remaining)`;
                 } else {
                     this.openSelectedBtn.innerHTML = `<i class="fas fa-check"></i> All URLs Opened!`;
                 }
             } else {
-                this.openSelectedBtn.innerHTML = '<i class="fas fa-external-link-alt"></i> Open Selected URLs';
+                this.openSelectedBtn.classList.add('hidden');
             }
-        } else {
-            this.openSelectedBtn.classList.add('hidden');
         }
     }
 
@@ -543,111 +544,113 @@ class URLBulkOpener {
         // Update selected URLs before checking
         this.updateSelectedUrls();
         
-        if (this.selectedUrls.length === 0) {
-            this.showNotification('No URLs selected! Please select some URLs by checking the boxes.', 'warning');
-            return;
+        // Use selected URLs if available, otherwise use all valid URLs
+        const urlsToOpen = this.selectedUrls.length > 0 ? this.selectedUrls : this.validUrls;
+        
+        if (urlsToOpen.length === 0) {
+            this.showNotification('No URLs to open! Please submit some URLs first.', 'warning');
+            return false;
         }
 
         // Check if we've opened all URLs
-        if (this.currentUrlIndex >= this.selectedUrls.length) {
-            this.showNotification('All selected URLs have been opened! Click Submit again to start over.', 'info');
-            return;
+        if (this.currentUrlIndex >= urlsToOpen.length) {
+            this.showNotification('All URLs have been opened! Click Submit again to start over.', 'info');
+            this.currentUrlIndex = 0; // Reset for next time
+            return false;
         }
 
         // Get the current URL to open
-        const urlToOpen = this.selectedUrls[this.currentUrlIndex];
-        console.log('Opening URL:', urlToOpen.processed);
+        const urlToOpen = urlsToOpen[this.currentUrlIndex];
+        console.log('Opening URL:', urlToOpen.processed, 'Index:', this.currentUrlIndex);
         
         // Open the URL in new tab
-        const newWindow = window.open(urlToOpen.processed, '_blank', 'noopener,noreferrer');
-        console.log('New window created:', newWindow);
-        
-        // Ensure focus stays on current window - multiple attempts
-        if (newWindow) {
-            // Immediately blur the new window
-            newWindow.blur();
+        try {
+            const newWindow = window.open(urlToOpen.processed, '_blank', 'noopener,noreferrer');
+            console.log('New window created:', newWindow);
             
-            // Focus back to current window
-            window.focus();
+            if (!newWindow || newWindow.closed) {
+                this.showNotification('Popup blocked! Please allow popups for this site.', 'warning');
+                return false;
+            }
             
-            // Additional focus prevention
-            setTimeout(() => {
-                newWindow.blur();
-                window.focus();
-            }, 10);
+            // Ensure focus stays on current window
+            if (newWindow) {
+                setTimeout(() => {
+                    newWindow.blur();
+                    window.focus();
+                }, 10);
+            }
             
-            setTimeout(() => {
-                newWindow.blur();
-                window.focus();
-            }, 100);
+            // Move to next URL
+            this.currentUrlIndex++;
+            const remaining = urlsToOpen.length - this.currentUrlIndex;
+            
+            // Show success notification
+            if (remaining > 0) {
+                this.showNotification(`Opened: ${urlToOpen.processed} (${remaining} more URLs remaining)`, 'success');
+            } else {
+                this.showNotification(`Opened: ${urlToOpen.processed} (All URLs opened!)`, 'success');
+            }
+            
+            // Update button text
+            this.updateActionButtons();
+        } catch (error) {
+            console.error('Error opening URL:', error);
+            this.showNotification('Error opening URL. Please try again.', 'error');
         }
-        
-        // Move to next URL
-        this.currentUrlIndex++;
-        const remaining = this.selectedUrls.length - this.currentUrlIndex;
-        
-        // Show success notification
-        if (remaining > 0) {
-            this.showNotification(`Opened: ${urlToOpen.processed} (${remaining} more URLs remaining)`, 'success');
-        } else {
-            this.showNotification(`Opened: ${urlToOpen.processed} (All URLs opened!)`, 'success');
-        }
-        
-        // Update button text
-        this.updateActionButtons();
         
         // Prevent any navigation
         return false;
     }
 
-    // New: Open all remaining selected URLs in separate tabs
-    openAllSelectedUrls() {
-        // Check if there are any valid URLs
-        if (this.validUrls.length === 0) {
-            this.showNotification('No valid URLs to open! Please submit some URLs first.', 'warning');
-            return false;
-        }
-
-        // Check if popups are blocked
-        this.checkPopupBlocker();
-        if (this.isPopupBlocked) {
-            this.showNotification('Popup blocker detected! Please allow popups for this site to open all URLs.', 'error');
-            return false;
-        }
-
-        // Open all valid URLs in new tabs
-        let openedCount = 0;
-        this.validUrls.forEach(urlObj => {
-            try {
-                const newWindow = window.open(urlObj.processed, '_blank', 'noopener,noreferrer');
-                if (newWindow) {
-                    openedCount++;
-                    // Try to keep focus on the current window
-                    setTimeout(() => { 
-                        try { 
-                            newWindow.blur(); 
-                            window.focus(); 
-                        } catch (e) {} 
-                    }, 0);
-                }
-            } catch (e) {
-                console.error('Error opening URL:', e);
-            }
-        });
-
-        // Update UI
-        this.currentUrlIndex = this.validUrls.length;
-        this.updateActionButtons();
-
-        // Show appropriate notification
-        if (openedCount > 0) {
-            this.showNotification(`Successfully opened ${openedCount} URL(s) in new tabs.`, 'success');
-        } else {
-            this.showNotification('Failed to open any URLs. Please check your popup settings and try again.', 'error');
-        }
-
+   openAllSelectedUrls() {
+    console.log('Button clicked!'); // Debug log
+    
+    // Check if there are any valid URLs
+    if (!this.validUrls || this.validUrls.length === 0) {
+        this.showNotification('No valid URLs to open! Please submit some URLs first.', 'warning');
         return false;
     }
+
+    // Get the first URL
+    const firstUrl = this.validUrls[0].processed;
+    console.log('Trying to open URL:', firstUrl); // Debug log
+
+    // Save button state
+    const originalText = this.openSelectedBtn.innerHTML;
+    this.openSelectedBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening...';
+    this.openSelectedBtn.disabled = true;
+
+    // Use a small delay to allow UI to update
+    setTimeout(() => {
+        try {
+            // Try to open the URL
+            const newWindow = window.open(firstUrl, '_blank');
+            
+            if (newWindow === null || typeof newWindow === 'undefined') {
+                // If popup was blocked
+                this.showNotification('Popup was blocked! Please allow popups for this site.', 'warning');
+                console.log('Popup was blocked by browser');
+            } else {
+                // Successfully opened
+                this.showNotification('URL opened in new tab!', 'success');
+                console.log('URL opened successfully');
+                
+                // Remove the opened URL from the list
+                this.validUrls.shift();
+            }
+        } catch (e) {
+            console.error('Error opening URL:', e);
+            this.showNotification('Error opening URL: ' + e.message, 'error');
+        } finally {
+            // Re-enable the button
+            this.openSelectedBtn.disabled = false;
+            this.openSelectedBtn.innerHTML = originalText;
+        }
+    }, 100);
+    
+    return false;
+}
 
 
     openSingleUrl(url) {
@@ -877,7 +880,11 @@ function toggleFAQ(element) {
     });
 }
 
+// Initialize the URLBulkOpener when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the main application
+    window.urlBulkOpener = new URLBulkOpener();
+    
     const form = document.getElementById('contactForm');
     if (!form) return;
     const emailInput = document.getElementById('contactEmail');
@@ -899,3 +906,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = mailto;
     });
 });
+
+  // Add this at the very end of the file
+console.log('URL Opener initialized. You can test with: testOpenUrl()');
+window.testOpenUrl = () => {
+    const testUrl = 'https://www.google.com';
+    console.log('Testing URL open with:', testUrl);
+    const newWindow = window.open(testUrl, '_blank');
+    if (newWindow) {
+        console.log('Successfully opened test URL');
+        return true;
+    } else {
+        console.log('Failed to open test URL - popup might be blocked');
+        return false;
+    }
+};  // Added the missing closing brace and semicolon here
