@@ -1,4 +1,4 @@
-// URL Bulk Opener - Main JavaScript File
+ // URL Bulk Opener - Main JavaScript File
 class URLBulkOpener {
     constructor() {
         this.urls = [];
@@ -70,12 +70,23 @@ class URLBulkOpener {
         // Smooth scrolling for navigation links
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                const href = link.getAttribute('href');
+                
+                // If it's an external link (like blog.html), just close menu and navigate normally
+                if (href && !href.startsWith('#')) {
                     this.closeMobileMenu();
+                    return; // Let browser handle the navigation
+                }
+                
+                // If it's an anchor link, handle smooth scrolling
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                        this.closeMobileMenu();
+                    }
                 }
             });
         });
@@ -539,34 +550,26 @@ class URLBulkOpener {
     }
 
     openSelectedUrls() {
-        console.log('Button clicked - opening next URL');
-        
-        // Update selected URLs before checking
-        this.updateSelectedUrls();
-        
-        // Use selected URLs if available, otherwise use all valid URLs
-        const urlsToOpen = this.selectedUrls.length > 0 ? this.selectedUrls : this.validUrls;
-        
-        if (urlsToOpen.length === 0) {
+        // Always use validUrls array directly (stable reference)
+        if (this.validUrls.length === 0) {
             this.showNotification('No URLs to open! Please submit some URLs first.', 'warning');
             return false;
         }
 
         // Check if we've opened all URLs
-        if (this.currentUrlIndex >= urlsToOpen.length) {
+        if (this.currentUrlIndex >= this.validUrls.length) {
             this.showNotification('All URLs have been opened! Click Submit again to start over.', 'info');
-            this.currentUrlIndex = 0; // Reset for next time
+            this.currentUrlIndex = 0;
+            this.updateActionButtons();
             return false;
         }
 
-        // Get the current URL to open
-        const urlToOpen = urlsToOpen[this.currentUrlIndex];
-        console.log('Opening URL:', urlToOpen.processed, 'Index:', this.currentUrlIndex);
+        // Get the current URL to open from validUrls array (index-based)
+        const urlToOpen = this.validUrls[this.currentUrlIndex];
         
         // Open the URL in new tab
         try {
             const newWindow = window.open(urlToOpen.processed, '_blank', 'noopener,noreferrer');
-            console.log('New window created:', newWindow);
             
             if (!newWindow || newWindow.closed) {
                 this.showNotification('Popup blocked! Please allow popups for this site.', 'warning');
@@ -574,16 +577,14 @@ class URLBulkOpener {
             }
             
             // Ensure focus stays on current window
-            if (newWindow) {
-                setTimeout(() => {
-                    newWindow.blur();
-                    window.focus();
-                }, 10);
-            }
+            setTimeout(() => {
+                newWindow.blur();
+                window.focus();
+            }, 10);
             
-            // Move to next URL
+            // IMPORTANT: Increment index AFTER opening URL
             this.currentUrlIndex++;
-            const remaining = urlsToOpen.length - this.currentUrlIndex;
+            const remaining = this.validUrls.length - this.currentUrlIndex;
             
             // Show success notification
             if (remaining > 0) {
@@ -599,7 +600,6 @@ class URLBulkOpener {
             this.showNotification('Error opening URL. Please try again.', 'error');
         }
         
-        // Prevent any navigation
         return false;
     }
 

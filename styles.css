@@ -209,7 +209,7 @@ body {
 .header {
     background: rgba(44, 62, 80, 0.95);
     backdrop-filter: blur(10px);
-    padding: 0.5rem 0;
+    padding: 1rem 0;
     margin: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
@@ -220,6 +220,7 @@ body {
     top: 0;
     z-index: 100;
     width: 100%;
+    min-height: 70px;
 }
 
 .header .main-container {
@@ -231,6 +232,35 @@ body {
     padding: 0 40px;
     position: relative;
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .header {
+        min-height: 65px;
+        padding: 0.75rem 0;
+    }
+    
+    .header .main-container {
+        padding: 0 15px;
+    }
+    
+    .logo {
+        font-size: 1.4rem;
+    }
+    
+    .logo h2 {
+        font-size: 1.4rem;
+    }
+    
+    .hamburger {
+        right: 15px;
+        padding: 0.4rem;
+    }
+    
+    .hamburger span {
+        width: 22px;
+        height: 2.5px;
+    }
 }
 
 /* Hamburger Menu */
@@ -354,8 +384,8 @@ body {
     }
     
     .nav {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 65px;
         left: 0;
         right: 0;
         background: rgba(44, 62, 80, 0.98);
@@ -367,12 +397,16 @@ body {
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease;
+        z-index: 99;
+        max-height: 0;
+        overflow: hidden;
     }
     
     .nav.active {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
+        max-height: 300px;
     }
     
     .nav-link {
@@ -380,10 +414,19 @@ body {
         width: 100%;
         text-align: center;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: block;
+        color: #ecf0f1;
+        font-size: 1rem;
+        font-weight: 600;
     }
     
     .nav-link:last-child {
         border-bottom: none;
+    }
+    
+    .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #3498db;
     }
 }
 
@@ -1683,9 +1726,7 @@ body.aboutus-page .main-content { flex: 0; }
     }
     
     .header {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+        padding: 0.4rem 0;
     }
     
     .nav {
@@ -1729,6 +1770,34 @@ body.aboutus-page .main-content { flex: 0; }
 }
 
 @media (max-width: 480px) {
+    .header {
+        min-height: 60px;
+        padding: 0.65rem 0;
+    }
+    
+    .header .main-container {
+        padding: 0 12px;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .logo h2 {
+        font-size: 1.2rem;
+    }
+    
+    .hamburger {
+        right: 12px;
+        padding: 0.3rem;
+    }
+    
+    .hamburger span {
+        width: 20px;
+        height: 2px;
+        margin: 2.5px 0;
+    }
+    
     .hero-title {
         font-size: 1.9rem;
         font-weight: 700;
