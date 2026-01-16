@@ -248,7 +248,7 @@ body {
         font-size: 1.4rem;
     }
     
-    .logo h2 {
+    .logo h3 {
         font-size: 1.4rem;
     }
     
@@ -328,7 +328,7 @@ body {
 
 /* Make the link inside the logo look exactly like the logo text */
 .logo h1 a,
-.logo h2 a {
+.logo h3 a {
     text-decoration: none;
     color: inherit;
     background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 50%, #e6f0ff 100%);
@@ -1783,7 +1783,7 @@ body.aboutus-page .main-content { flex: 0; }
         font-size: 1.2rem;
     }
     
-    .logo h2 {
+    .logo h3 {
         font-size: 1.2rem;
     }
     
