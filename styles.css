@@ -52,14 +52,13 @@
 .blog-card {
     background: #ffffff;
     border-radius: 16px;
-    padding: 1.75rem 1.5rem;
+    padding: 0;
     border: 1px solid #e2e8f0;
     box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
     transition: all 0.25s ease;
 }
 
 .blog-card-image-wrapper {
-    margin: -1.75rem -1.5rem 1.25rem;
     overflow: hidden;
     border-radius: 16px 16px 0 0;
 }
@@ -75,11 +74,26 @@
     border-color: #cbd5f5;
 }
 
+.blog-card-body {
+    padding: 0.9rem 1.25rem 1.25rem;
+}
+
+.blog-card-recommend {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-bottom: 0.3rem;
+}
+
 .blog-card-title {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #1a202c;
+    margin-bottom: 0.4rem;
+    color: #2563eb;
+}
+
+.blog-card-author {
+    font-size: 0.85rem;
+    color: #6b7280;
 }
 
 .blog-card-meta {
