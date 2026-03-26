@@ -61,11 +61,14 @@
 .blog-card-image-wrapper {
     overflow: hidden;
     border-radius: 16px 16px 0 0;
+    height: 160px;
 }
 
 .blog-card-image {
     width: 100%;
     display: block;
+    height: 100%;
+    object-fit: cover;
 }
 
 .blog-card:hover {
@@ -85,16 +88,28 @@
 }
 
 .blog-card-title {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 0.4rem;
-    color: #2563eb;
+    color: #1a202c;
+    line-height: 1.25;
 }
 
 .blog-card-author {
     font-size: 0.85rem;
     color: #6b7280;
 }
+
+@media (max-width: 768px) {
+    .blog-card-image-wrapper {
+        height: 140px;
+    }
+
+    .blog-card-title {
+        font-size: 1.05rem;
+    }
+}
+
 
 .blog-card-meta {
     font-size: 0.9rem;
