@@ -39,18 +39,24 @@ class URLBulkOpener {
 
     attachEventListeners() {
         // Input events
-        this.urlInput.addEventListener('input', () => this.handleInputChange());
-        this.urlInput.addEventListener('paste', () => this.handlePaste());
+        if (this.urlInput) {
+            this.urlInput.addEventListener('input', () => this.handleInputChange());
+            this.urlInput.addEventListener('paste', () => this.handlePaste());
+        }
         
         // Button events
-        this.submitBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.handleSubmit();
-        });
-        this.pasteBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.handlePasteButton();
-        });
+        if (this.submitBtn) {
+            this.submitBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleSubmit();
+            });
+        }
+        if (this.pasteBtn) {
+            this.pasteBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handlePasteButton();
+            });
+        }
         // Open Selected URLs button event
         if (this.openSelectedBtn) {
             this.openSelectedBtn.addEventListener('click', (e) => {
@@ -65,7 +71,9 @@ class URLBulkOpener {
         // Browser instruction tabs removed
         
         // Hamburger menu
-        this.hamburger.addEventListener('click', () => this.toggleMobileMenu());
+        if (this.hamburger && this.nav) {
+            this.hamburger.addEventListener('click', () => this.toggleMobileMenu());
+        }
         
         // Smooth scrolling for navigation links
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -93,6 +101,7 @@ class URLBulkOpener {
         
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
+            if (!this.hamburger || !this.nav) return;
             if (!this.hamburger.contains(e.target) && !this.nav.contains(e.target)) {
                 this.closeMobileMenu();
             }
@@ -787,7 +796,9 @@ document.head.appendChild(style);
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new URLBulkOpener();
+    if (!window.urlBulkOpener) {
+        window.urlBulkOpener = new URLBulkOpener();
+    }
 });
 
 // Refresh when clicking the site title in the header
@@ -821,7 +832,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     const inputActions = document.querySelector('.input-actions');
-    inputActions.appendChild(exampleBtn);
+    if (inputActions) {
+        inputActions.appendChild(exampleBtn);
+    }
 });
 
 // Handle page visibility change to check popup blocker again
@@ -882,8 +895,10 @@ function toggleFAQ(element) {
 
 // Initialize the URLBulkOpener when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize the main application
-    window.urlBulkOpener = new URLBulkOpener();
+    // Initialize the main application once
+    if (!window.urlBulkOpener) {
+        window.urlBulkOpener = new URLBulkOpener();
+    }
     
     const form = document.getElementById('contactForm');
     if (!form) return;
