@@ -45,7 +45,8 @@
         <p style="text-align:center; margin-bottom: 1.25rem;">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
 
         <section class="contact-underline-form">
-          <form id="contactForm">
+          <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+            <input type="hidden" name="access_key" value="5409ef3a-5f14-42a3-b0ad-67b3790579c2"
             <div class="cu-field">
               <label for="contactEmail"><i class="fas fa-envelope"></i> Email Address</label>
               <input id="contactEmail" name="email" type="email" placeholder="Enter your email address" aria-label="Email Address" required />
