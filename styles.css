@@ -407,6 +407,45 @@
     color: #4a5568;
 }
 
+.blog-comparison-table-wrap {
+    margin: 1.5rem 0 2rem;
+    overflow-x: auto;
+}
+
+.blog-comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    table-layout: fixed;
+}
+
+.blog-comparison-table th,
+.blog-comparison-table td {
+    width: 50%;
+    padding: 1.35rem 1.25rem;
+    text-align: left;
+    vertical-align: top;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #1f2937;
+    font-weight: 400;
+}
+
+.blog-comparison-table th {
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .blog-comparison-table th,
+    .blog-comparison-table td {
+        padding: 1rem 0.85rem;
+        font-size: 0.98rem;
+    }
+}
+
 .coming-soon {
     grid-column: 1 / -1;
     text-align: center;
