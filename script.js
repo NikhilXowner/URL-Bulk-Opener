@@ -79,22 +79,48 @@ class URLBulkOpener {
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
-                
-                // If it's an external link (like blog.html), just close menu and navigate normally
-                if (href && !href.startsWith('#')) {
-                    this.closeMobileMenu();
-                    return; // Let browser handle the navigation
-                }
-                
-                // If it's an anchor link, handle smooth scrolling
-                if (href && href.startsWith('#')) {
+                if (!href) return;
+
+                const hashIndex = href.indexOf('#');
+                const hash = hashIndex !== -1 ? href.slice(hashIndex) : '';
+                const path = hashIndex !== -1 ? href.slice(0, hashIndex) : href;
+                const isIndexPage = /(?:^|\/)index\.html?$/i.test(window.location.pathname) ||
+                    window.location.pathname === '/' ||
+                    window.location.pathname.endsWith('/');
+
+                if (hash && (href.startsWith('#') || (isIndexPage && (!path || /index\.html?$/i.test(path))))) {
                     e.preventDefault();
-                    const targetId = href.substring(1);
+                    const targetId = hash.slice(1);
                     const targetElement = document.getElementById(targetId);
                     if (targetElement) {
                         targetElement.scrollIntoView({ behavior: 'smooth' });
+                        history.pushState(null, '', `#${targetId}`);
                         this.closeMobileMenu();
                     }
+                    return;
+                }
+
+                this.closeMobileMenu();
+            });
+        });
+
+        if (window.location.hash) {
+            this.scrollToPageSection(window.location.hash.slice(1));
+        }
+
+        document.querySelectorAll('.btn-header-cta').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const href = button.getAttribute('href');
+                if (!href || !href.includes('#urlInputSection')) return;
+
+                const isIndexPage = /(?:^|\/)index\.html?$/i.test(window.location.pathname) ||
+                    window.location.pathname === '/' ||
+                    window.location.pathname.endsWith('/');
+
+                if (isIndexPage) {
+                    e.preventDefault();
+                    scrollToUrlInput();
+                    this.closeMobileMenu();
                 }
             });
         });
@@ -116,6 +142,22 @@ class URLBulkOpener {
     closeMobileMenu() {
         this.hamburger.classList.remove('active');
         this.nav.classList.remove('active');
+    }
+
+    scrollToPageSection(sectionId) {
+        const targetElement = document.getElementById(sectionId);
+        if (!targetElement) return;
+
+        window.requestAnimationFrame(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            if (sectionId === 'urlInputSection') {
+                setTimeout(() => {
+                    const urlInput = document.getElementById('urlInput');
+                    if (urlInput) urlInput.focus();
+                }, 500);
+            }
+        });
     }
 
     detectBrowser() {

@@ -1,0 +1,20 @@
+RewriteEngine On
+RewriteBase /
+
+# Serve existing files and directories as-is
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Clean URLs for main pages
+RewriteRule ^index/?$ index.html [L]
+RewriteRule ^blog/?$ blog.html [L]
+RewriteRule ^contact/?$ contact.html [L]
+RewriteRule ^about/?$ about.html [L]
+RewriteRule ^privacy/?$ privacy.html [L]
+RewriteRule ^how-to-use/?$ how-to-use.html [L]
+RewriteRule ^faq/?$ faq.html [L]
+
+# Clean URLs for blog posts and other .html pages
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
