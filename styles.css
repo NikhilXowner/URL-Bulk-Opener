@@ -813,12 +813,28 @@ body {
 }
 
 /* Supported File Formats Section */
-.specialization-section h2 {
-    margin-top: 2.5rem;
+.specialization-section h2,
+.specialization-section > h3:first-of-type,
+.specialization-heading {
+    color: var(--text);
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    font-size: 2rem;
+    font-weight: 750;
+    line-height: 1.3;
+    text-align: center;
 }
 
-.specialization-section h2:first-of-type {
-    margin-top: 0;
+.specialization-section > h3:not(:first-of-type),
+.specialization-section h2:not(:first-of-type),
+.specialization-subheading {
+    color: var(--text);
+    margin-top: 2.75rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.65rem;
+    font-weight: 750;
+    line-height: 1.35;
+    text-align: center;
 }
 
 .formats-block {
