@@ -12,8 +12,12 @@
      crossorigin="anonymous"></script>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon-removebg-preview.png">
-  <link rel="shortcut icon" href="favicon-removebg-preview.ico" type="image/x-icon">
+     <link rel="icon" href="/favicon.ico" sizes="any">
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+     <link rel="manifest" href="/site.webmanifest">
+
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7EJQL1HSJH"></script>
@@ -29,12 +33,11 @@
   <header class="header">
     <div class="main-container">
       <div class="logo">
-        <h2><a href="/index" style="color: inherit; text-decoration: none;">URL Bulk Opener</a></h2>
+        <h2><a href="/index">Bulk URL <span>Opener</span></a></h2>
       </div>
       <nav class="nav" id="nav">
         <a href="/index" class="nav-link">Home</a>
-        <a href="/#how-to-use" class="nav-link">How to Use</a>
-        <a href="/#faq" class="nav-link">FAQ</a>
+        <a href="/about" class="nav-link active">About</a>
         <a href="/blog" class="nav-link">Blog</a>
         <a href="/contact" class="nav-link">Contact</a>
       </nav>
@@ -42,89 +45,139 @@
     </div>
   </header>
 
-  <main class="main-content about-main">
-    <section class="about-page-section">
-      <div class="about-page-container">
-        <div class="content-top-actions"><a href="/index" class="content-home-link" aria-label="Home"><i class="fas fa-home"></i> Home</a></div>
-        <h2 class="about-page-title">About Us</h2>
+  <main class="about-story">
+    <section class="hero-section">
+      <h1 class="hero-title">About Bulk URL Opener</h1>
+      <p class="hero-subtitle">A small, free tool that turns a list of links into open browser tabs.</p>
+    </section>
 
-        <h3>URLBulkOpener</h3>
-        <p>You know how annoying it gets when you have to open a dozen links one after another? We felt the same problem — that’s exactly why we designed the url bulk opener.</p>
-        <p>It’s a fast and simple tool made to save time for people who work with multiple URLs every day — whether it’s for SEO, research, making backlinks or just browsing.</p>
-        <p>We didn’t want it to feel complicated or technical. So there’s no sign-up, no setup, and no waiting. Just paste your links, click once, and everything opens instantly. That’s it.</p>
-        <p>We created it for anyone who deals with thousands of links daily — SEO experts, developers, marketers, researchers, or even everyday users who value speed and simplicity. No sign-ups, no extensions and no hidden charges its totally free for anyone — just clean, fast, and reliable performance straight from your browser.</p>
+    <section class="about-block">
+      <div class="about-block-inner">
+        <h2>About Bulk URL Opener</h2>
+        <p>urlbulkopener.com is a free online bulk URL opener. You give it a list of web addresses, and it opens them in new tabs so you don't have to do it yourself, one link at a time. It runs entirely in the browser, so there is nothing to install.</p>
+      </div>
+    </section>
 
-        <h3 class="features-heading">⚙️ Key Features</h3>
-        <div class="about-features-list">
-          <div class="about-feature-item"><span>⏱️ <strong>Customizable Time Delays</strong> – Control how fast your URLs open.</span></div>
-          <div class="about-feature-item"><span>🔖 <strong>Flexible Tab Management</strong> – Choose whether to open links in new tabs, new windows, or reuse existing ones.</span></div>
-          <div class="about-feature-item"><span>💾 <strong>Local Storage Option</strong> – Save your frequently used URL lists right in your browser for next time.</span></div>
-          <div class="about-feature-item"><span>🔒 <strong>Privacy First</strong> – No sign-ups, no accounts, no tracking. Everything stays securely on your device.</span></div>
-          <div class="about-feature-item"><span>⚡ <strong>Fast and Lightweight</strong> – Designed for smooth performance, no matter how many URLs you open.</span></div>
+    <section class="about-block">
+      <div class="about-block-inner">
+        <h2>Why We Created This Tool</h2>
+        <p>Picture a list of sixty links. Opening them by hand means sixty rounds of copy, switch tab, paste, press Enter. It isn't hard, but it eats a surprising amount of time, and it's easy to lose your place halfway through.</p>
+        <p>That small, repetitive chore is why we built this tool. We wanted a page that does one thing well and doesn't get in the way, so the time you save goes into reading the pages instead of opening them.</p>
+      </div>
+    </section>
+
+    <section class="about-block">
+      <div class="about-block-inner">
+        <h2>What Bulk URL Opener Offers</h2>
+        <p>In short, the tool takes your list, tidies it, and opens it. It reads links you paste or import from a file, flags entries that aren't valid web addresses or that appear twice, and then opens the valid ones together. The full list of features, supported file types and limits is on the <a href="/index">homepage</a>, next to the tool itself.</p>
+      </div>
+    </section>
+
+    <section class="about-block">
+      <div class="about-block-inner">
+        <h2>Who Can Benefit From It</h2>
+        <p>Anyone who works from a list of links, whether or not they're technical.</p>
+        <ul class="about-grid">
+          <li>
+            <h3>SEO Professionals</h3>
+            <p>Checking redirects after a site migration, or going through the URLs from an audit.</p>
+          </li>
+          <li>
+            <h3>Developers and Testers</h3>
+            <p>Opening a batch of staging or test pages to see which ones fail to load.</p>
+          </li>
+          <li>
+            <h3>Marketers and Website Owners</h3>
+            <p>Reviewing landing pages and campaign links before they go live.</p>
+          </li>
+          <li>
+            <h3>Researchers and Students</h3>
+            <p>Opening a saved list of sources together for reading and comparison.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="about-block">
+      <div class="about-block-inner">
+        <h2>Our Focus on Simplicity and Usability</h2>
+        <p>We try to keep the tool small. Every extra button is one more thing to figure out, so we only add what helps with the core job. We also try to be honest about what the tool can't control, such as how your browser handles several new tabs at once. Those notes sit right on the homepage, where you need them.</p>
+      </div>
+    </section>
+
+    <section class="about-block">
+      <div class="about-block-inner">
+        <h2>Privacy and Responsible Use</h2>
+        <h3>Privacy</h3>
+        <p>The links you paste and the files you import are processed in your browser and are not uploaded to a server by the tool. How the rest of the website handles information is covered in the <a href="/privacy">Privacy Policy</a>.</p>
+        <h3>Responsible use</h3>
+        <p>The tool opens whatever you give it and can't judge whether a page is safe, so stick to lists from sources you trust. Please use it lawfully and in line with our <a href="/terms-and-conditions">Terms and Conditions</a>.</p>
+      </div>
+    </section>
+
+    <section class="about-block">
+      <div class="about-block-inner">
+        <h2>Contact Us</h2>
+        <div class="about-contact">
+          <p>Found a bug, or have an idea or a question? Send us a message through the contact page. For tips and guides, visit the <a href="/blog">blog</a>.</p>
+          <a class="btn btn-primary" href="/contact">Contact Us</a>
         </div>
-
-        <h3>🌍 Our Vision</h3>
-        <p>Our mission is clear — to make the internet more proficient, one click at a time.To be the most trusted and user-friendly url opener that helps people save time can complete his work with ease.</p>
-        <p>We regularly enhanced our tool based on our user feedback to make sure it stays fast, intuitive, and secure.We’re not any type of organization and company who chasing trends — we’re a real team that sincerely cares about creating something useful.</p>
-
-        <h3>🤝 Let’s Connect</h3>
-        <p>We love hearing from our users.</p>
-        <p>If you have a feature request, feedback, or just want to say hi — reach out anytime through our Contact Page <a href="/contact">Contact us</a>. Every suggestion helps us to grow and serve you preferably.</p>
-        <p>Thank you for choosing URLBulkOpener.com —</p>
-        <p><strong>A simple idea, built to save your time and make your work effortless.</strong></p>
       </div>
     </section>
   </main>
   <!-- Footer -->
   <footer class="footer">
-    <div class="main-container footer-grid">
+    <div class="main-container footer-grid footer-grid--with-social">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="favicon-removebg-preview.png" alt="URL Bulk Opener" width="44" height="44">
-          <span class="footer-site-name">URL Bulk Opener</span>
+          <img src="icon-192.png" alt="URL Bulk Opener" width="44" height="44">
+         <div class="logo">
+                <h3><a href="/index" id="siteTitle">Bulk URL <span>Opener</span></a></h3>
+            </div>
         </div>
-        <p class="footer-tagline">Open multiple URLs instantly in separate tabs. Validate, select, and launch links in bulk to supercharge your workflow.</p>
+        <p class="footer-tagline">A free, browser-based tool for opening multiple URLs at once. Paste links or import TXT, CSV, Excel or Word files, remove duplicates and open valid URLs in new tabs.</p>
       </div>
       <div class="footer-col">
-        <h4 class="footer-heading">Quick Links</h4>
+        <h4 class="footer-heading">EXPLORE</h4>
         <ul class="footer-list">
+          <li><a href="/index">Home</a></li>
           <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact Us</a></li>
           <li><a href="/blog">Blog</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/#how-to-use">How to Use</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4 class="footer-heading">Support</h4>
+        <h4 class="footer-heading">LEGAL</h4>
         <ul class="footer-list">
-          <li>Need help or have questions?</li>
-          <li><a href="/contact">Contact Us</a></li>
+       
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms-and-conditions">Terms and Conditions</a></li>
         </ul>
       </div>
       <div class="footer-col footer-col-social">
-        <h4 class="footer-heading">Social Media</h4>
-        <ul class="footer-list footer-social-list">
-            <li>
-                <a href="https://in.pinterest.com/nikhilxowner/_profile/" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-pinterest" aria-hidden="true"></i> Pinterest
-                </a>
-            </li>
-            <li>
-                <a href="https://x.com/urlbulkopener" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-twitter" aria-hidden="true"></i> X
-                </a>
-            </li>
-            <li>
-                <a href="https://www.reddit.com/user/No_Kale_4655/" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-reddit" aria-hidden="true"></i> Reddit
-                </a>
-            </li>
-        </ul>
-    </div>
+                <h4 class="footer-heading">Social Media</h4>
+                <ul class="footer-list footer-social-list">
+                    <li>
+                        <a href="https://in.pinterest.com/nikhilxowner/_profile/" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-pinterest" aria-hidden="true"></i> Pinterest
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://x.com/urlbulkopener" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-twitter" aria-hidden="true"></i> X
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.reddit.com/user/No_Kale_4655/" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-reddit" aria-hidden="true"></i> Reddit
+                        </a>
+                    </li>
+                </ul>
+            </div>
     </div>
     <div class="footer-bottom">
       <div class="main-container">
-        <p>&copy; 2025 URL Bulk Opener. All rights reserved.</p>
+        <p>&copy; 2026 Bulk URL Opener. All rights reserved.</p>
       </div>
     </div>
   </footer>

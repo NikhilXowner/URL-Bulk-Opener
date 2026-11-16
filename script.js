@@ -18,6 +18,13 @@ class URLBulkOpener {
         this.urlInput = document.getElementById('urlInput');
         this.submitBtn = document.getElementById('submitBtn');
 		this.pasteBtn = document.getElementById('pasteBtn');
+        this.clearBtn = document.getElementById('clearBtn');
+        this.removeDupesBtn = document.getElementById('removeDupesBtn');
+        this.txtFileInput = document.getElementById('txtFileInput');
+        this.csvFileInput = document.getElementById('csvFileInput');
+        this.xlsxFileInput = document.getElementById('xlsxFileInput');
+        this.docxFileInput = document.getElementById('docxFileInput');
+        this.libPromises = {};
 		this.urlInputSection = document.getElementById('urlInputSection');
 		this.inputContainer = document.querySelector('#urlInputSection .input-container');
         
@@ -56,6 +63,30 @@ class URLBulkOpener {
                 e.preventDefault();
                 this.handlePasteButton();
             });
+        }
+        if (this.clearBtn) {
+            this.clearBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.clearAll();
+            });
+        }
+        if (this.removeDupesBtn) {
+            this.removeDupesBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.removeDuplicateLines();
+            });
+        }
+        if (this.txtFileInput) {
+            this.txtFileInput.addEventListener('change', (e) => this.handleTxtImport(e));
+        }
+        if (this.csvFileInput) {
+            this.csvFileInput.addEventListener('change', (e) => this.handleCsvImport(e));
+        }
+        if (this.xlsxFileInput) {
+            this.xlsxFileInput.addEventListener('change', (e) => this.handleExcelImport(e));
+        }
+        if (this.docxFileInput) {
+            this.docxFileInput.addEventListener('change', (e) => this.handleDocxImport(e));
         }
         // Open Selected URLs button event
         if (this.openSelectedBtn) {
@@ -595,9 +626,424 @@ class URLBulkOpener {
     }
 
     clearAll() {
-        this.urlInput.value = '';
+        if (this.urlInput) this.urlInput.value = '';
+        ['txtFileInput', 'csvFileInput', 'xlsxFileInput', 'docxFileInput'].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+        ['txtFileName', 'csvFileName', 'xlsxFileName', 'docxFileName'].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = '';
+        });
         this.clearUrlList();
         this.showNotification('All URLs cleared!', 'info');
+        if (this.urlInput) this.urlInput.focus();
+    }
+
+    splitLines(text) {
+        return String(text || '')
+            .split(/\r\n|\r|\n/)
+            .map((line) => line.trim())
+            .filter((line) => line.length > 0);
+    }
+
+    looksLikeUrl(value) {
+        const text = String(value || '').trim();
+        if (!text) return false;
+        try {
+            const withProtocol = /^https?:\/\//i.test(text) ? text : `https://${text}`;
+            const parsed = new URL(withProtocol);
+            return ['http:', 'https:'].includes(parsed.protocol) && parsed.hostname.includes('.');
+        } catch (e) {
+            return /^(https?:\/\/|www\.)/i.test(text);
+        }
+    }
+
+    normalizeUrlKey(value) {
+        try {
+            const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+            const parsed = new URL(withProtocol);
+            parsed.hash = '';
+            parsed.hostname = parsed.hostname.toLowerCase();
+            if ((parsed.protocol === 'http:' && parsed.port === '80') || (parsed.protocol === 'https:' && parsed.port === '443')) {
+                parsed.port = '';
+            }
+            let path = parsed.pathname.replace(/\/+$/, '');
+            if (!path) path = '/';
+            parsed.pathname = path;
+            return parsed.toString().toLowerCase();
+        } catch (e) {
+            return String(value || '').trim().toLowerCase().replace(/\/+$/, '');
+        }
+    }
+
+    appendImportedLines(lines) {
+        if (!this.urlInput) return;
+        const addition = lines.join('\n');
+        const existing = this.urlInput.value.trim();
+        this.urlInput.value = existing ? `${existing}\n${addition}` : addition;
+        this.urlInput.dispatchEvent(new Event('input'));
+    }
+
+    parseCsv(text) {
+        const rows = [];
+        let row = [];
+        let field = '';
+        let inQuotes = false;
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i];
+            const next = text[i + 1];
+            if (inQuotes) {
+                if (char === '"' && next === '"') {
+                    field += '"';
+                    i++;
+                } else if (char === '"') {
+                    inQuotes = false;
+                } else {
+                    field += char;
+                }
+            } else if (char === '"') {
+                inQuotes = true;
+            } else if (char === ',') {
+                row.push(field);
+                field = '';
+            } else if (char === '\n') {
+                row.push(field);
+                rows.push(row);
+                row = [];
+                field = '';
+            } else if (char !== '\r') {
+                field += char;
+            }
+        }
+        if (field.length || row.length) {
+            row.push(field);
+            rows.push(row);
+        }
+        return rows;
+    }
+
+    extractUrlsFromCsv(text) {
+        const rows = this.parseCsv(text);
+        if (rows.length === 0) return [];
+        const headerRow = rows[0];
+        let urlColumnIndex = -1;
+        headerRow.forEach((cell, index) => {
+            const normalized = String(cell).trim().toLowerCase();
+            if (
+                urlColumnIndex === -1 &&
+                (normalized === 'url' ||
+                    normalized === 'urls' ||
+                    normalized === 'link' ||
+                    normalized === 'links' ||
+                    normalized.includes('url') ||
+                    normalized.includes('link'))
+            ) {
+                urlColumnIndex = index;
+            }
+        });
+        const urls = [];
+        if (urlColumnIndex !== -1) {
+            for (let i = 1; i < rows.length; i++) {
+                const cell = rows[i][urlColumnIndex];
+                if (cell && String(cell).trim()) urls.push(String(cell).trim());
+            }
+            return urls;
+        }
+        rows.forEach((row) => {
+            row.forEach((cell) => {
+                const trimmed = String(cell).trim();
+                if (trimmed && /^https?:\/\//i.test(trimmed)) urls.push(trimmed);
+            });
+        });
+        return urls;
+    }
+
+    setFileName(id, name) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = name || '';
+    }
+
+    handleTxtImport(event) {
+        const file = event.target.files && event.target.files[0];
+        event.target.value = '';
+        if (!file) return;
+        if (file.size > 10 * 1024 * 1024) {
+            this.showNotification('Files are limited to 10 MB.', 'warning');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            const lines = this.splitLines(reader.result);
+            if (!lines.length) {
+                this.showNotification('No URLs were found in that TXT file.', 'warning');
+                return;
+            }
+            this.appendImportedLines(lines);
+            this.setFileName('txtFileName', file.name);
+            this.showNotification(`Imported ${lines.length} line(s) from ${file.name}.`, 'success');
+        };
+        reader.onerror = () => this.showNotification('Could not read that TXT file.', 'error');
+        reader.readAsText(file);
+    }
+
+    handleCsvImport(event) {
+        const file = event.target.files && event.target.files[0];
+        event.target.value = '';
+        if (!file) return;
+        if (file.size > 10 * 1024 * 1024) {
+            this.showNotification('Files are limited to 10 MB.', 'warning');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+            const urls = this.extractUrlsFromCsv(String(reader.result || ''));
+            if (!urls.length) {
+                this.showNotification('No URLs were found in that CSV file. Use a URL/Link column or full http/https addresses.', 'warning');
+                return;
+            }
+            this.appendImportedLines(urls);
+            this.setFileName('csvFileName', file.name);
+            this.showNotification(`Imported ${urls.length} URL(s) from ${file.name}.`, 'success');
+        };
+        reader.onerror = () => this.showNotification('Could not read that CSV file.', 'error');
+        reader.readAsText(file);
+    }
+
+    injectScript(src) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.async = true;
+            script.referrerPolicy = 'no-referrer';
+            script.onload = resolve;
+            script.onerror = () => {
+                script.remove();
+                reject(new Error('load failed'));
+            };
+            document.head.appendChild(script);
+        });
+    }
+
+    loadLib(name) {
+        const libs = {
+            xlsx: {
+                test: () => window.XLSX,
+                urls: [
+                    'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js',
+                    'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
+                ]
+            },
+            jszip: {
+                test: () => window.JSZip,
+                urls: [
+                    'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+                    'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js'
+                ]
+            }
+        };
+        const lib = libs[name];
+        if (lib.test()) return Promise.resolve(lib.test());
+        if (!this.libPromises[name]) {
+            this.libPromises[name] = (async () => {
+                for (const url of lib.urls) {
+                    try {
+                        await this.injectScript(url);
+                        if (lib.test()) return lib.test();
+                    } catch (e) { /* try next */ }
+                }
+                throw new Error('library unavailable');
+            })();
+            this.libPromises[name].catch(() => { delete this.libPromises[name]; });
+        }
+        return this.libPromises[name];
+    }
+
+    findUrlsInText(text) {
+        const matches = String(text || '').match(/(?:https?:\/\/|www\.)[^\s<>"'`\u00a0]+/gi) || [];
+        return matches.map((value) => value.replace(/[.,;:!?'"\]}>]+$/, '')).filter(Boolean);
+    }
+
+    readBuffer(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(reader.error || new Error('read failed'));
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
+    async handleExcelImport(event) {
+        const input = event.target;
+        const file = input.files && input.files[0];
+        input.value = '';
+        if (!file) return;
+        const name = file.name.toLowerCase();
+        if (!name.endsWith('.xlsx') && !name.endsWith('.xls')) {
+            this.showNotification('Please choose an .xlsx or .xls file.', 'error');
+            return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+            this.showNotification('Files are limited to 10 MB.', 'warning');
+            return;
+        }
+        this.showNotification(`Reading ${file.name}...`, 'info');
+        let XLSX;
+        try {
+            XLSX = await this.loadLib('xlsx');
+        } catch (e) {
+            this.showNotification('Excel reader could not load. Check your connection or save as CSV.', 'error');
+            return;
+        }
+        let workbook;
+        try {
+            workbook = XLSX.read(await this.readBuffer(file), { type: 'array' });
+        } catch (e) {
+            this.showNotification(`Could not read ${file.name}. It may be password-protected or not a real Excel file.`, 'error');
+            return;
+        }
+        const found = [];
+        (workbook.SheetNames || []).forEach((sheetName) => {
+            const sheet = workbook.Sheets[sheetName];
+            if (!sheet) return;
+            Object.keys(sheet).forEach((addr) => {
+                if (addr.charAt(0) === '!') return;
+                const cell = sheet[addr];
+                if (!cell) return;
+                if (cell.l && typeof cell.l.Target === 'string' && /^https?:\/\//i.test(cell.l.Target.trim())) {
+                    found.push(cell.l.Target.trim());
+                }
+                if (typeof cell.f === 'string') this.findUrlsInText(cell.f).forEach((url) => found.push(url));
+                const text = typeof cell.w === 'string' ? cell.w : (typeof cell.v === 'string' ? cell.v : '');
+                if (text) this.findUrlsInText(text).forEach((url) => found.push(url));
+            });
+        });
+        this.finishFileImport(found, file.name, 'xlsxFileName');
+    }
+
+    async extractFromDocx(buffer, JSZip) {
+        const relNs = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+        const zip = await JSZip.loadAsync(buffer);
+        if (!zip.file('word/document.xml')) throw new Error('not docx');
+        const parse = async (name) => {
+            const file = zip.file(name);
+            if (!file) return null;
+            const doc = new DOMParser().parseFromString(await file.async('string'), 'application/xml');
+            if (doc.getElementsByTagName('parsererror').length) throw new Error('bad xml');
+            return doc;
+        };
+        const parts = Object.keys(zip.files).filter((n) => /^word\/(document|footnotes|endnotes|header\d*|footer\d*)\.xml$/.test(n));
+        const found = [];
+        for (const part of parts) {
+            const doc = await parse(part);
+            const rels = {};
+            const relDoc = await parse(part.replace('word/', 'word/_rels/') + '.rels');
+            if (relDoc) {
+                Array.from(relDoc.getElementsByTagName('Relationship')).forEach((rel) => {
+                    if (/^external$/i.test(rel.getAttribute('TargetMode') || '')) {
+                        rels[rel.getAttribute('Id')] = rel.getAttribute('Target');
+                    }
+                });
+            }
+            Array.from(doc.getElementsByTagNameNS('*', 'hyperlink')).forEach((node) => {
+                const id = node.getAttributeNS(relNs, 'id');
+                const target = id && rels[id];
+                if (target && /^https?:\/\//i.test(target.trim())) found.push(target.trim());
+            });
+            Array.from(doc.getElementsByTagNameNS('*', 'instrText')).forEach((node) => {
+                const match = /HYPERLINK\s+"([^"]+)"/i.exec(node.textContent || '');
+                if (match && /^https?:\/\//i.test(match[1])) found.push(match[1]);
+            });
+            Array.from(doc.getElementsByTagNameNS('*', 'p')).forEach((p) => {
+                const text = Array.from(p.getElementsByTagNameNS('*', 't')).map((t) => t.textContent).join('');
+                this.findUrlsInText(text).forEach((url) => found.push(url));
+            });
+        }
+        return found;
+    }
+
+    async handleDocxImport(event) {
+        const input = event.target;
+        const file = input.files && input.files[0];
+        input.value = '';
+        if (!file) return;
+        const name = file.name.toLowerCase();
+        if (name.endsWith('.doc')) {
+            this.showNotification('Older .doc files are not supported. Save as .docx and import again.', 'error');
+            return;
+        }
+        if (!name.endsWith('.docx')) {
+            this.showNotification('Please choose a .docx file.', 'error');
+            return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+            this.showNotification('Files are limited to 10 MB.', 'warning');
+            return;
+        }
+        this.showNotification(`Reading ${file.name}...`, 'info');
+        let JSZip;
+        try {
+            JSZip = await this.loadLib('jszip');
+        } catch (e) {
+            this.showNotification('Word reader could not load. Check your internet connection and try again.', 'error');
+            return;
+        }
+        try {
+            const found = await this.extractFromDocx(await this.readBuffer(file), JSZip);
+            this.finishFileImport(found, file.name, 'docxFileName');
+        } catch (e) {
+            this.showNotification(`Could not read ${file.name}. It may be corrupted or not a real .docx file.`, 'error');
+        }
+    }
+
+    finishFileImport(found, fileName, nameId) {
+        const seen = new Set();
+        let urls = [];
+        found.forEach((url) => {
+            const key = this.looksLikeUrl(url) ? this.normalizeUrlKey(url) : String(url).toLowerCase();
+            if (!seen.has(key)) {
+                seen.add(key);
+                urls.push(url);
+            }
+        });
+        if (!urls.length) {
+            this.showNotification(`No web URLs were found in ${fileName}.`, 'warning');
+            return;
+        }
+        if (urls.length > 5000) urls = urls.slice(0, 5000);
+        this.appendImportedLines(urls);
+        this.setFileName(nameId, fileName);
+        this.showNotification(`Imported ${urls.length} URL(s) from ${fileName}. Click Submit URLs to review.`, 'success');
+    }
+
+    removeDuplicateLines() {
+        if (!this.urlInput) return;
+        const rawList = this.splitLines(this.urlInput.value);
+        if (!rawList.length) {
+            this.showNotification('Paste or import URLs first.', 'warning');
+            return;
+        }
+        const seen = new Set();
+        const deduped = [];
+        let removedCount = 0;
+        rawList.forEach((line) => {
+            if (this.looksLikeUrl(line)) {
+                const key = this.normalizeUrlKey(line);
+                if (seen.has(key)) {
+                    removedCount += 1;
+                    return;
+                }
+                seen.add(key);
+            }
+            deduped.push(line);
+        });
+        if (removedCount === 0) {
+            this.showNotification('No duplicate URLs were found.', 'info');
+            return;
+        }
+        this.urlInput.value = deduped.join('\n');
+        this.urlInput.dispatchEvent(new Event('input'));
+        this.showNotification(`Removed ${removedCount} duplicate URL(s). Click Submit URLs to refresh.`, 'success');
     }
 
     openSelectedUrls() {
@@ -874,7 +1320,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     const inputActions = document.querySelector('.input-actions');
-    if (inputActions) {
+    if (inputActions && !document.getElementById('removeDupesBtn')) {
         inputActions.appendChild(exampleBtn);
     }
 });

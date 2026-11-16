@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us - URLBulkOpener</title>
+  <title>Contact Us | URLBulkOpener.com</title>
+  <meta name="description" content="Contact URLBulkOpener.com to report tool issues, share feedback, or ask questions about using our bulk URL-opening utility." />
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -12,8 +13,12 @@
      crossorigin="anonymous"></script>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon-removebg-preview.png">
-  <link rel="shortcut icon" href="favicon-removebg-preview.ico" type="image/x-icon">
+     <link rel="icon" href="/favicon.ico" sizes="any">
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+     <link rel="manifest" href="/site.webmanifest">
+
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7EJQL1HSJH"></script>
@@ -29,17 +34,15 @@
   <header class="header">
     <div class="main-container">
       <div class="logo">
-        <h2><a href="/index" style="color: inherit; text-decoration: none;">URL Bulk Opener</a></h2>
+        <h2><a href="/index">Bulk URL <span>Opener</span></a></h2>
       </div>
       <nav class="nav" id="nav">
         <a href="/index" class="nav-link">Home</a>
-        <a href="/#how-to-use" class="nav-link">How to Use</a>
-        <a href="/#faq" class="nav-link">FAQ</a>
+        <a href="/about" class="nav-link">About</a>
         <a href="/blog" class="nav-link">Blog</a>
         <a href="/contact" class="nav-link active">Contact</a>
       </nav>
       <div class="header-actions">
-        <a href="index.html#urlInputSection" class="btn btn-header-cta">Try Free</a>
         <button class="hamburger" id="hamburger" aria-label="Open navigation menu">
           <span></span><span></span><span></span>
         </button>
@@ -47,91 +50,265 @@
     </div>
   </header>
 
-  <main class="main-content about-main">
-    <section class="about-page-section">
-      <div class="about-page-container">
-        <div class="content-top-actions"><a href="/index" class="content-home-link" aria-label="Home"><i class="fas fa-home"></i> Home</a></div>
-        <h2 class="about-page-title">Contact Us</h2>
-        <p style="text-align:center; margin-bottom: 1.25rem;">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-
-        <section class="contact-underline-form">
-          <form action="https://api.web3forms.com/submit" method="POST" id="contactFormLive">
-            <input type="hidden" name="access_key" value="5409ef3a-5f14-42a3-b0ad-67b3790579c2" />
-            <div class="cu-field">
-              <label for="contactEmail"><i class="fas fa-envelope"></i> Email Address</label>
-              <input id="contactEmail" name="email" type="email" placeholder="Enter your email address" aria-label="Email Address" required />
-            </div>
-            <div class="cu-field">
-              <label for="contactLink"><i class="fas fa-link"></i> Link</label>
-              <input id="contactLink" name="link" type="url" placeholder="Please enter link that have problem" aria-label="Link" />
-            </div>
-            <div class="cu-field">
-              <label for="contactMessage"><i class="fas fa-comment-dots"></i> Message</label>
-              <textarea id="contactMessage" name="message" rows="6" placeholder="Write your message here..." aria-label="Message" required></textarea>
-            </div>
-            <div class="cu-actions">
-              <button id="contactSubmitLive" class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
-            </div>
-          </form>
-        </section>
-      </div>
+  <main id="main-content">
+    <section class="hero-section">
+      <h1 class="hero-title">Contact Us</h1>
+      <p class="hero-subtitle">Something not working, or an idea that would make the tool easier to use? Send us a message. The more detail you share, the easier it is to reproduce and fix.</p>
     </section>
+
+    <div class="contact-layout">
+      <section class="form-panel" aria-labelledby="form-heading">
+        <h2 id="form-heading">Send a message</h2>
+        <p class="form-intro">Fields marked with an asterisk (*) are required.</p>
+
+        <form id="contactFormLive" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <!-- Web3Forms Config -->
+          <input type="hidden" name="access_key" value="5409ef3a-5f14-42a3-b0ad-67b3790579c2" />
+          <input type="hidden" name="from_name" value="URL Bulk Opener Contact Form" />
+          <input type="checkbox" name="botcheck" class="hp-field" style="display: none;">
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field-label" for="cf-name">Name *</label>
+              <input class="input" type="text" id="cf-name" name="name" autocomplete="name" required aria-describedby="cf-name-error" />
+              <p class="field-error" id="cf-name-error"></p>
+            </div>
+            <div class="field">
+              <label class="field-label" for="cf-email">Email address *</label>
+              <input class="input" type="email" id="cf-email" name="email" autocomplete="email" required aria-describedby="cf-email-error" />
+              <p class="field-error" id="cf-email-error"></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="cf-type">What is this about? *</label>
+            <select class="input" id="cf-type" name="subject" required aria-describedby="cf-type-error">
+              <option value="">Choose an option</option>
+              <option value="Problem with the URL-opening tool">Problem with the URL-opening tool</option>
+              <option value="Broken page or link on the site">Broken page or link on the site</option>
+              <option value="Suggestion or feature idea">Suggestion or feature idea</option>
+              <option value="Question about how the tool works">Question about how the tool works</option>
+              <option value="Accessibility or usability difficulty">Accessibility or usability difficulty</option>
+              <option value="Something else">Something else</option>
+            </select>
+            <p class="field-error" id="cf-type-error"></p>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="cf-env">Browser and device <span class="optional">(optional)</span></label>
+            <input class="input" type="text" id="cf-env" name="browser_device" placeholder="e.g. Chrome on Windows 11, Safari on iPhone" aria-describedby="cf-env-hint" />
+            <p class="field-hint" id="cf-env-hint">Helpful for tool problems and display issues.</p>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="cf-message">Message *</label>
+            <textarea class="input" id="cf-message" name="message" required minlength="10" aria-describedby="cf-message-hint cf-message-error"></textarea>
+            <p class="field-hint" id="cf-message-hint">Please don't include passwords or private links.</p>
+            <p class="field-error" id="cf-message-error"></p>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="cf-submit">Send message</button>
+          </div>
+          <div class="status-message" id="cf-status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <div class="info-col">
+        <section class="info-block" aria-labelledby="reasons-heading">
+          <h2 id="reasons-heading">What you can write to us about</h2>
+          <ul class="info-list">
+            <li><strong>Tool problems:</strong> links that won't open, an import that fails, or duplicate detection that looks wrong.</li>
+            <li><strong>Broken pages:</strong> a blog post, menu link or page on this site that doesn't load properly.</li>
+            <li><strong>Suggestions:</strong> changes that would save you time or make results clearer.</li>
+            <li><strong>Questions:</strong> how a file format, limit or setting behaves.</li>
+            <li><strong>Accessibility:</strong> trouble using the site with a keyboard, screen reader, zoom or high-contrast settings.</li>
+          </ul>
+        </section>
+
+        <section class="info-block" aria-labelledby="include-heading">
+          <h2 id="include-heading">What to include in a problem report</h2>
+          <ul class="info-list">
+            <li>What you expected to happen and what happened instead, including any message you saw.</li>
+            <li>How you added your URLs (pasted text, TXT, CSV, Excel or Word) and what you clicked next.</li>
+            <li>Your browser and device, if the issue could depend on them.</li>
+            <li>An example of a link or file layout that triggers it, with anything private removed.</li>
+          </ul>
+        </section>
+
+        <div class="info-block note">
+          <p>The tool works in your browser, so we can't see the URLs or files you used. A clear description is the best way to help us reproduce the problem.</p>
+          <p>If only some links opened, check your browser's pop-up settings first. Browsers often block many tabs opened at once.</p>
+        </div>
+      </div>
+    </div>
   </main>
-  
+
   <!-- Footer -->
   <footer class="footer">
-    <div class="main-container footer-grid">
+    <div class="main-container footer-grid footer-grid--with-social">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="favicon-removebg-preview.png" alt="URL Bulk Opener" width="44" height="44">
-          <span class="footer-site-name">URL Bulk Opener</span>
+          <img src="icon-192.png" alt="URL Bulk Opener" width="44" height="44">
+          <div class="logo">
+                <h3><a href="/index" id="siteTitle">Bulk URL <span>Opener</span></a></h3>
+            </div>
         </div>
-        <p class="footer-tagline">Open multiple URLs instantly in separate tabs. Validate, select, and launch links in bulk to supercharge your workflow.</p>
+        <p class="footer-tagline">A free, browser-based tool for opening multiple URLs at once. Paste links or import TXT, CSV, Excel or Word files, remove duplicates and open valid URLs in new tabs.</p>
       </div>
       <div class="footer-col">
-        <h4 class="footer-heading">Quick Links</h4>
+        <h4 class="footer-heading">Explore</h4>
         <ul class="footer-list">
+          <li><a href="/index">Home</a></li>
           <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact Us</a></li>
           <li><a href="/blog">Blog</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/#how-to-use">How to Use</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4 class="footer-heading">Support</h4>
+        <h4 class="footer-heading">Legal</h4>
         <ul class="footer-list">
-          <li>Need help or have questions?</li>
-          <li><a href="/contact">Contact Us</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms-and-conditions">Terms and Conditions</a></li>
         </ul>
       </div>
       <div class="footer-col footer-col-social">
         <h4 class="footer-heading">Social Media</h4>
         <ul class="footer-list footer-social-list">
-            <li>
-                <a href="https://in.pinterest.com/nikhilxowner/_profile/" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-pinterest" aria-hidden="true"></i> Pinterest
-                </a>
-            </li>
-            <li>
-                <a href="https://x.com/urlbulkopener" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-twitter" aria-hidden="true"></i> X
-                </a>
-            </li>
-            <li>
-                <a href="https://www.reddit.com/user/No_Kale_4655/" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-reddit" aria-hidden="true"></i> Reddit
-                </a>
-            </li>
+          <li>
+            <a href="https://in.pinterest.com/nikhilxowner/_profile/" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-pinterest" aria-hidden="true"></i> Pinterest
+            </a>
+          </li>
+          <li>
+            <a href="https://x.com/urlbulkopener" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-twitter" aria-hidden="true"></i> X
+            </a>
+          </li>
+          <li>
+            <a href="https://www.reddit.com/user/No_Kale_4655/" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-reddit" aria-hidden="true"></i> Reddit
+            </a>
+          </li>
         </ul>
-    </div>
+      </div>
     </div>
     <div class="footer-bottom">
       <div class="main-container">
-        <p>&copy; 2025 URL Bulk Opener. All rights reserved.</p>
+        <p>&copy; 2026 Bulk URL Opener. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    (function() {
+      const form = document.getElementById('contactFormLive');
+      if (!form) return;
+
+      const nameInput = document.getElementById('cf-name');
+      const emailInput = document.getElementById('cf-email');
+      const typeInput = document.getElementById('cf-type');
+      const msgInput = document.getElementById('cf-message');
+      const submitBtn = document.getElementById('cf-submit');
+      const statusBox = document.getElementById('cf-status');
+
+      const nameError = document.getElementById('cf-name-error');
+      const emailError = document.getElementById('cf-email-error');
+      const typeError = document.getElementById('cf-type-error');
+      const msgError = document.getElementById('cf-message-error');
+
+      function clearErrors() {
+        [nameInput, emailInput, typeInput, msgInput].forEach(el => {
+          if (el) el.classList.remove('is-invalid');
+        });
+        [nameError, emailError, typeError, msgError].forEach(el => {
+          if (el) {
+            el.textContent = '';
+            el.classList.remove('is-visible');
+          }
+        });
+      }
+
+      function setError(input, errorEl, msg) {
+        if (input) input.classList.add('is-invalid');
+        if (errorEl) {
+          errorEl.textContent = msg;
+          errorEl.classList.add('is-visible');
+        }
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        clearErrors();
+
+        let isValid = true;
+        const nameVal = (nameInput ? nameInput.value : '').trim();
+        const emailVal = (emailInput ? emailInput.value : '').trim();
+        const typeVal = (typeInput ? typeInput.value : '').trim();
+        const msgVal = (msgInput ? msgInput.value : '').trim();
+
+        if (!nameVal) {
+          setError(nameInput, nameError, 'Please enter your name.');
+          isValid = false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        if (!emailVal) {
+          setError(emailInput, emailError, 'Please enter your email address.');
+          isValid = false;
+        } else if (!emailRegex.test(emailVal)) {
+          setError(emailInput, emailError, 'Please enter a valid email address.');
+          isValid = false;
+        }
+
+        if (!typeVal) {
+          setError(typeInput, typeError, 'Please choose what your message is about.');
+          isValid = false;
+        }
+
+        if (!msgVal) {
+          setError(msgInput, msgError, 'Please enter your message.');
+          isValid = false;
+        } else if (msgVal.length < 10) {
+          setError(msgInput, msgError, 'Please enter at least 10 characters.');
+          isValid = false;
+        }
+
+        if (!isValid) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        statusBox.className = 'status-message';
+        statusBox.textContent = '';
+
+        const formData = new FormData(form);
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        })
+        .then(async (response) => {
+          const json = await response.json();
+          if (response.status === 200 && json.success) {
+            statusBox.className = 'status-message status-success is-visible';
+            statusBox.textContent = 'Thank you! Your message has been sent successfully.';
+            form.reset();
+          } else {
+            statusBox.className = 'status-message status-error is-visible';
+            statusBox.textContent = json.message || 'Something went wrong. Please try again.';
+          }
+        })
+        .catch(() => {
+          statusBox.className = 'status-message status-error is-visible';
+          statusBox.textContent = 'Something went wrong. Please check your connection and try again.';
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send message';
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

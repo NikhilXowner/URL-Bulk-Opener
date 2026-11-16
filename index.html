@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary Meta Tags -->
-    <title>Bulk URL Opener – Open Multiple Links Online Instantly</title>
-    <meta name="title" content="Bulk URL Opener – Open Multiple Links Online Instantly">
-    <meta name="description" content="Use our free Bulk URL Opener to open multiple URLs in one click. Fast, private, and easy-to-use tool for SEO experts, marketers, and developers.">
+    <title>Bulk URL Opener Online – Open Multiple URLs at Once (Free)</title>
+    <meta name="title" content="Bulk URL Opener Online – Open Multiple URLs at Once (Free)">
+    <meta name="description" content="Free bulk URL opener online: paste your links, validate them and open multiple URLs at once in new tabs. No signup, no extension, no install needed.">
     <meta name="keywords" content="URL opener, bulk URL opener, open multiple URLs, URL manager, SEO tool, productivity tool, web development, research tool, URL validator, popup opener">
     <meta name="author" content="URL Bulk Opener">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -55,9 +55,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
+   
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon-removebg-preview.png">
-    <link rel="shortcut icon" href="favicon-removebg-preview.ico" type="image/x-icon">
+     <link rel="icon" href="/favicon.ico" sizes="any">
+     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+     <link rel="manifest" href="/site.webmanifest">
 
    
     <!-- Preconnect to external domains -->
@@ -120,57 +124,76 @@
     <header class="header">
         <div class="main-container">
             <div class="logo">
-                <h3><a href="/index" id="siteTitle">URL Bulk Opener</a></h3>
+                <h3><a href="/index" id="siteTitle">Bulk URL <span>Opener</span></a></h3>
             </div>
-            
-            <!-- Hamburger Menu -->
-            <button class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <!-- Navigation Menu -->
             <nav class="nav" id="nav">
                 <a href="/index" class="nav-link active">Home</a>
-                <a href="/how-to-use" class="nav-link">How to Use</a>
-                <a href="/faq" class="nav-link">FAQ</a>
+                <a href="/about" class="nav-link">About</a>
                 <a href="/blog" class="nav-link">Blog</a>
                 <a href="/contact" class="nav-link">Contact</a>
             </nav>
-
-           
+            <div class="header-actions">
+                <button class="hamburger" id="hamburger" aria-label="Open navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
             <section class="hero-section">
-                <h1 class="hero-title">URL Bulk Opener</h1>
+                <h1 class="hero-title">Bulk URL Opener: Open Multiple Links at Once </h1>
                 <p class="hero-subtitle">Opening links one at a time might not seem like a big deal until you're doing it dozens of times every day. Whether you're researching websites, testing pages, reviewing client projects, checking backlinks, comparing online resources, or managing a large list of URLs, repetitive clicking can quickly slow down your workflow.</p>
             </section>
 
             <!-- URL Input Section -->
             <div id="urlInputSection" class="url-input-section">
                 <div class="input-container">
-                    <textarea 
-                        id="urlInput" 
-                        class="url-input" 
-                        placeholder="https://example.com&#10;https://google.com&#10;https://github.com"
+                    <h2 class="tool-heading">Submit Your URLs</h2>
+                    <p class="tool-instructions">Paste one URL per line or import a TXT or CSV file.</p>
+                    <label class="field-label" for="urlInput">Paste your URLs (one per line)</label>
+                    <textarea
+                        id="urlInput"
+                        class="url-input"
+                        placeholder="https://example.com/page-1&#10;https://example.com/page-2&#10;https://example.com/document.pdf&#10;https://example.com/file.docx"
                         rows="8"
                     ></textarea>
-                    <div class="input-actions">
-                        <button id="submitBtn" class="btn btn-primary">
-                            Submit
-                        </button>
+                    <p class="import-hint">Enter one URL per line. Accepts direct links to webpages, PDFs, DOC/DOCX, XLS/XLSX, PPT/PPTX, images and other publicly accessible files — any valid http:// or https:// URL.</p>
+                    <div class="import-row">
+                        <span class="file-btn-wrap">
+                            <label class="btn btn-upload" for="txtFileInput"><i class="fas fa-download"></i> Import TXT</label>
+                            <input type="file" id="txtFileInput" class="visually-hidden" accept=".txt,text/plain" aria-label="Import URLs from a TXT file">
+                            <span class="file-name" id="txtFileName"></span>
+                        </span>
+                        <span class="file-btn-wrap">
+                            <label class="btn btn-upload" for="csvFileInput"><i class="fas fa-download"></i> Import CSV</label>
+                            <input type="file" id="csvFileInput" class="visually-hidden" accept=".csv,text/csv" aria-label="Import URLs from a CSV file">
+                            <span class="file-name" id="csvFileName"></span>
+                        </span>
+                        <span class="file-btn-wrap">
+                            <label class="btn btn-upload" for="xlsxFileInput"><i class="fas fa-download"></i> Import Excel</label>
+                            <input type="file" id="xlsxFileInput" class="visually-hidden" accept=".xlsx,.xls" aria-label="Import URLs from an Excel file">
+                            <span class="file-name" id="xlsxFileName"></span>
+                        </span>
+                        <span class="file-btn-wrap">
+                            <label class="btn btn-upload" for="docxFileInput"><i class="fas fa-download"></i> Import Word</label>
+                            <input type="file" id="docxFileInput" class="visually-hidden" accept=".docx" aria-label="Import URLs from a Word file">
+                            <span class="file-name" id="docxFileName"></span>
+                        </span>
                     </div>
+                    <p class="import-hint">TXT files should list one URL per line. CSV files with a header like "URL" or "Link" are read automatically; otherwise every cell that looks like a URL is imported. Excel (.xlsx, .xls) files are scanned across all worksheets, and Word (.docx) files are scanned for visible links and hyperlink destinations. Files are limited to 10 MB.</p>
+                    <div class="input-actions">
+                        <button type="button" id="submitBtn" class="btn btn-primary">Submit URLs</button>
+                        <button type="button" id="removeDupesBtn" class="btn btn-secondary">Remove Duplicates</button>
+                        <button type="button" id="clearBtn" class="btn btn-danger-outline">Clear All</button>
+                    </div>
+                    <p class="import-hint">Only URLs that pass validation will be opened. Your browser may ask you to allow multiple tabs. Whether a link opens in the browser or downloads depends on the destination site, not on this tool.</p>
                 </div>
                 
-                <!-- Description Section -->
-                <div class="description-section">
-                    <p><strong>URL Bulk Opener</strong> provides a faster and more organized way to access multiple web pages at once. Simply paste your URLs, click open, and let your browser handle the rest. No software installation, browser extension, account creation, or complicated setup required.</p>
-                   <p>Built for SEO professionals, developers, marketers, researchers, students, and anyone who regularly works with multiple links, URL Bulk Opener helps eliminate repetitive tasks so you can spend more time on the work that actually matters.</p>
-                </div>
+                
 
                 <!-- URL List Display -->
                 <div id="urlList" class="url-list hidden">
@@ -195,209 +218,198 @@
 
             <!-- About Section -->
             <section id="about" class="about-section">
-                <h2>Why Use a <span class="gradient-text">Url Bulk Opener ?</span></h2>
+                <h2>What Is a <span class="gradient-text">Bulk URL Opener</span>?</h2>
               
-                <p>Most people discover the need for a bulk URL opener after running into the same problem repeatedly: opening large numbers of links manually.</p>
-                <p>A marketer reviewing campaign pages, a developer testing multiple routes, a student collecting research sources, or an SEO professional checking competitor websites all face the same challenge. The task itself is simple, but repeating it dozens of times wastes valuable time.</p>
-                <p>URL Bulk Opener helps eliminate that repetitive process. Instead of focusing on opening links one by one, you can focus on the actual work that matters.</p>
-                <h3>Key <span class="gradient-text">Features</span></h3>
-                <div class="features-container">
-                    <div class="features-grid">
-                        <article class="feature feature-primary">
-                            <div class="feature-icon">
-                                <i class="fas fa-bolt" aria-hidden="true"></i>
-                            </div>
-                            <h4>Fast URL Opening</h4>
-                            <p>Launch multiple URLs from a single list and reduce repetitive manual browsing.</p>
-                        </article>
-                        <article class="feature feature-primary">
-                            <div class="feature-icon">
-                                <i class="fas fa-window-maximize" aria-hidden="true"></i>
-                            </div>
-                            <h4>Browser-Based Tool</h4>
-                            <p>Works directly in your browser without requiring downloads or installation.</p>
-                        </article>
-                        <article class="feature feature-primary">
-                            <div class="feature-icon">
-                                <i class="fas fa-circle-check" aria-hidden="true"></i>
-                            </div>
-                            <h4>Easy to Use</h4>
-                            <p>Paste links, review your list, and open them in just a few clicks.</p>
-                        </article>
-                        
-                    </div>
-                    
-                    <div class="features-grid">
-                        <article class="feature feature-secondary">
-                            <div class="feature-icon">
-                                <i class="fas fa-user-shield" aria-hidden="true"></i>
-                            </div>
-                            <h4>Privacy Focused</h4>
-                            <p>Your URLs remain under your control while using the tool.</p>
-                        </article>
-                        <article class="feature feature-secondary">
-                            <div class="feature-icon">
-                                <i class="fas fa-gift" aria-hidden="true"></i>
-                            </div>
-                            <h4>Free Access</h4>
-                            <p>Use the tool whenever you need it without complicated account requirements.</p>
-                        </article>
-                        <article class="feature feature-secondary">
-                            <div class="feature-icon">
-                                <i class="fas fa-list-check" aria-hidden="true"></i>
-                            </div>
-                            <h4>Productivity Friendly</h4>
-                            <p>Designed to simplify workflows that involve managing multiple websites.</p>
-                        </article>
-                    </div>
-                </div>
+                <p>Bulk URL Opener is an online tool that opens multiple websites from a single list, each in its own browser tab. Instead of copying, pasting and clicking link by link, you add your list once and open the pages together.</p>
+                <p>It’s useful whenever your work involves going through many pages in a short time. SEO professionals can open competitor pages or groups of URLs for manual research. Developers can reach staging pages and project links quickly, while marketers and website owners can organize campaign pages, product URLs and other web resources.</p>
+                <p>We built this tool to save the time people lose on repetitive tasks, so they can spend it on work that matters. Bulk URL Opener is free to use, with no signup required.
+</p>
+                
+                <h2>Features That Make <span class="gradient-text">Bulk URL Opener</span> Useful</h2>
+                <ul class="key-features-list">
+                    <li>
+                        <svg class="key-feature-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <h4>Lightning Fast</h4>
+                        <p>Open multiple URLs in new tabs with one click instead of visiting each link one by one.</p>
+                    </li>
+                    <li>
+                        <svg class="key-feature-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                        <h4>URL Validation</h4>
+                        <p>Each entry is checked for a valid http:// or https:// format, and invalid entries are listed separately.</p>
+                    </li>
+                    <li>
+                        <svg class="key-feature-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                        <h4>Cross-Platform</h4>
+                        <p>Runs in your browser on desktop, tablet and mobile. Tab limits and popup settings depend on your browser.</p>
+                    </li>
+                    <li>
+                        <svg class="key-feature-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <h4>SEO Research</h4>
+                        <p>Open competitor pages or a list of site URLs together to review multiple websites faster.</p>
+                    </li>
+                    <li>
+                        <svg class="key-feature-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        <h4>Duplicate Detection</h4>
+                        <p>Repeated URLs are flagged, and you can remove them before opening your list.</p>
+                    </li>
+                    <li>
+                        <svg class="key-feature-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+                        <h4>Free to Use</h4>
+                        <p>Use the tool at no cost. Your list is processed in your browser.</p>
+                    </li>
+                </ul>
             </section>
 
-            <!-- Common Use Cases Section -->
-            <section class="where-use-section">
-                <h2>Common Use <span class="gradient-text">Cases</span></h2>
-                <p>URL Bulk Opener fits into many everyday workflows where opening multiple links quickly saves time and keeps work organized.</p>
-
-                <div class="use-cases">
-                    <div class="use-case-grid">
-                        <article class="use-case">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                            <h4>SEO Research</h4>
-                            <p>SEO professionals often review search results, competitor pages, backlinks, content examples, and technical audits across multiple websites. Opening all required URLs together makes research more efficient.</p>
-                        </article>
-                        <article class="use-case">
-                            <i class="fas fa-code" aria-hidden="true"></i>
-                            <h4>Web Development</h4>
-                            <p>Developers frequently switch between staging environments, production websites, documentation pages, testing routes, and project resources. A bulk opener reduces repetitive navigation during development.</p>
-                        </article>
-                        <article class="use-case">
-                            <i class="fas fa-bullhorn" aria-hidden="true"></i>
-                            <h4>Digital Marketing</h4>
-                            <p>Campaign managers often work with landing pages, ad destinations, analytics dashboards, and client websites. Opening all required pages at once can simplify daily monitoring tasks.</p>
-                        </article>
-                        <article class="use-case">
-                            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                            <h4>Research & Education</h4>
-                            <p>Students, researchers, journalists, and analysts frequently compare information from multiple sources. Accessing all sources together creates a more organized research workflow.</p>
-                        </article>
-                        <article class="use-case">
-                            <i class="fas fa-clipboard-check" aria-hidden="true"></i>
-                            <h4>Quality Assurance Testing</h4>
-                            <p>QA teams regularly verify pages after updates or deployments. Opening multiple pages simultaneously helps speed up testing and reduces the risk of overlooking important URLs.</p>
-                        </article>
-                        <article class="use-case">
-                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
-                            <h4>Daily Productivity</h4>
-                            <p>Many users simply maintain a list of websites they visit every day. A bulk opener can help streamline those routines and reduce repetitive work.</p>
-                        </article>
-                    </div>
-                </div>
-            </section>
+           
 
             <!-- Compatibility Section -->
-            <section class="where-use-section">
-                <h2>Compatible Platforms and <span class="gradient-text">Browsers</span></h2>
-                <p>The Multiple Website Opener is designed to work smoothly across all modern devices and operating systems. You can use the tool on desktops, laptops, tablets, and smartphones without compatibility issues.</p>
-                <div class="compat-columns">
-                    <div class="compat-column compat-column-left">
-                        <h3>Supported Operating Systems:</h3>
-                        <ul>
-                            <li>Windows</li>
-                            <li>macOS</li>
-                            <li>Linux</li>
-                            <li>Android</li>
-                            <li>iOS</li>
-                        </ul>
+            <section class="where-use-section compat-section">
+                 <h2>Using <span class="gradient-text">Bulk URL Opener</span> on Any Operating System and Browser</h2>
+                 <p>Bulk URL Opener runs in your web browser, so there’s nothing to download or install. It works on Windows, macOS, Linux, Android and iOS, in browsers like Chrome, Edge, Firefox, Opera, Safari and Brave.</p>
+                 <p>The steps are the same everywhere: add your list, review the links, select the ones you want and open them in new tabs.</p>
+                 <p>Some browsers block several new tabs opening at once, and mobile browsers can be stricter about it. If that happens, allow pop-ups for this site in your browser settings and try again.</p>
+
+               
+
+                <div class="compat-grid">
+                    <div class="compat-card">
+                        <div class="compat-card-header">
+                            <div class="compat-header-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                            </div>
+                            <div>
+                                <h3>Supported Operating Systems</h3>
+                                <p class="compat-card-subtitle">Desktop &amp; Mobile Platforms</p>
+                            </div>
+                        </div>
+                        <div class="compat-badges-grid">
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 88 88" fill="#0078D7"><path d="M0 12.4l35.6-4.9v35.3H0V12.4zm0 35.8h35.6v35.3L0 78.6V48.2zm40.3-41.5L88 0v42.8H40.3V6.7zm0 41.5H88v42.8l-47.7-6.7V48.2z"/></svg>
+                                <span>Windows</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 170 170" fill="#1b2733"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.74-11.64-14.1-6.19-9.68-11.08-20.78-14.67-33.31-3.59-12.53-5.39-24.16-5.39-34.9 0-14.89 3.82-27.18 11.45-36.88 7.63-9.7 17.2-14.64 28.71-14.84 5.37 0 11.28 1.41 17.74 4.24 6.46 2.82 10.45 4.31 11.96 4.47 1.5.16 5.58-1.42 12.24-4.75 6.66-3.33 12.39-4.87 17.2-4.63 12.72.63 22.95 5.17 30.68 13.62-11.03 6.67-16.39 15.75-16.08 27.24.31 9.47 4.13 17.43 11.46 23.88 7.33 6.45 15.93 10.05 25.8 10.81-2.22 6.6-4.99 13.1-8.31 19.5zM119.22 33.64c-.21-4.84 1.48-9.87 5.07-15.09 3.59-5.22 8.45-9.17 14.58-11.85.42 4.41-.98 9.35-4.2 14.82-3.22 5.47-7.85 9.5-13.89 12.12h-1.56z"/></svg>
+                                <span>macOS</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E95420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m7 8 4 4-4 4"/><path d="M13 16h4"/></svg>
+                                <span>Linux</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 24 24" fill="#3DDC84"><path d="M17.523 15.341a.8.8 0 0 0 .798-.8.8.8 0 0 0-.798-.8.8.8 0 0 0-.8.8.8.8 0 0 0 .8.8zm-11.046 0a.8.8 0 0 0 .798-.8.8.8 0 0 0-.798-.8.8.8 0 0 0-.8.8.8.8 0 0 0 .8.8zm11.405-6.02l1.997-3.46a.416.416 0 0 0-.152-.569.416.416 0 0 0-.568.153l-2.023 3.504A12.18 12.18 0 0 0 12 8.01a12.18 12.18 0 0 0-5.136.938L4.841 5.444a.416.416 0 0 0-.568-.153.416.416 0 0 0-.152.569l1.997 3.46A9.97 9.97 0 0 0 2 17.01h20a9.97 9.97 0 0 0-4.118-7.689z"/></svg>
+                                <span>Android</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 170 170" fill="#1b2733"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.74-11.64-14.1-6.19-9.68-11.08-20.78-14.67-33.31-3.59-12.53-5.39-24.16-5.39-34.9 0-14.89 3.82-27.18 11.45-36.88 7.63-9.7 17.2-14.64 28.71-14.84 5.37 0 11.28 1.41 17.74 4.24 6.46 2.82 10.45 4.31 11.96 4.47 1.5.16 5.58-1.42 12.24-4.75 6.66-3.33 12.39-4.87 17.2-4.63 12.72.63 22.95 5.17 30.68 13.62-11.03 6.67-16.39 15.75-16.08 27.24.31 9.47 4.13 17.43 11.46 23.88 7.33 6.45 15.93 10.05 25.8 10.81-2.22 6.6-4.99 13.1-8.31 19.5zM119.22 33.64c-.21-4.84 1.48-9.87 5.07-15.09 3.59-5.22 8.45-9.17 14.58-11.85.42 4.41-.98 9.35-4.2 14.82-3.22 5.47-7.85 9.5-13.89 12.12h-1.56z"/></svg>
+                                <span>iOS</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="compat-column compat-column-right">
-                        <h3>Supported Browsers:</h3>
-                        <ul>
-                            <li>Google Chrome</li>
-                            <li>Microsoft Edge</li>
-                            <li>Mozilla Firefox</li>
-                            <li>Opera</li>
-                            <li>Safari</li>
-                            <li>Brave</li>
-                        </ul>
+
+                    <div class="compat-card">
+                        <div class="compat-card-header">
+                            <div class="compat-header-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            </div>
+                            <div>
+                                <h3>Supported Browsers</h3>
+                                <p class="compat-card-subtitle">Modern Web Browsers</p>
+                            </div>
+                        </div>
+                        <div class="compat-badges-grid">
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#4285F4" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="#4285F4"/><path d="M12 2a10 10 0 0 1 8.66 5H12" stroke="#EA4335" stroke-width="2"/><path d="M20.66 7a10 10 0 0 1-5 13.66L12 12" stroke="#FBBC05" stroke-width="2"/><path d="M15.66 20.66A10 10 0 0 1 3.34 12H12" stroke="#34A853" stroke-width="2"/></svg>
+                                <span>Google Chrome</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21.5 12.5C21 8 17 5 12 5c-5.5 0-10 4.5-10 10 0 4 2.5 6.5 6.5 6.5 4.5 0 7-3 7-5.5 0-2-1.5-3-3.5-3-2 0-3 1-3 2 0 1.5 1 2 2.5 2" stroke="#0078D7" stroke-width="2" stroke-linecap="round"/></svg>
+                                <span>Microsoft Edge</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#FF7139" stroke-width="2"/><path d="M12 5c3 0 6 2 6 5 0 4-3 7-7 7-3 0-5-2-5-4 0-3 2-5 5-5" stroke="#FF9400" stroke-width="2" stroke-linecap="round"/></svg>
+                                <span>Mozilla Firefox</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="12" rx="7" ry="10" stroke="#FF1B2D" stroke-width="2.5"/><ellipse cx="12" cy="12" rx="3.5" ry="6.5" stroke="#FF1B2D" stroke-width="2"/></svg>
+                                <span>Opera</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#006CFF" stroke-width="2"/><polygon points="15.5 8.5 13.5 13.5 8.5 15.5 10.5 10.5 15.5 8.5" fill="#006CFF"/></svg>
+                                <span>Safari</span>
+                            </div>
+                            <div class="compat-badge">
+                                <svg class="compat-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 5-3.5 9.5-7 11-3.5-1.5-7-6-7-11V5l7-3z" stroke="#FB542B" stroke-width="2" fill="rgba(251, 84, 43, 0.1)"/><path d="m9 12 2 2 4-4" stroke="#FB542B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <span>Brave</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Specialization Section -->
             <section id="specialization" class="specialization-section">
-                <h2>What is a <span class="gradient-text">URL Bulk Opener?</span></h2>
-                <p>Anyone who regularly works with large collections of links eventually encounters the same challenge. Opening URLs individually is easy when there are only two or three links. However, when that number grows to twenty, fifty, or even hundreds, the process becomes repetitive and inefficient.</p>
-                <p>A URL Bulk Opener is designed to solve that problem.</p>
-                <p>Instead of opening links one by one, users can paste a list of URLs into a single input area and launch them together. This simple concept saves time and helps create a more organized browsing experience.</p>
-                <p>The usefulness of a bulk URL opener becomes clear in real-world situations. Imagine performing competitor research for a new project. You may need to review dozens of websites, compare content structures, analyze layouts, or study search engine results. Manually opening every page creates unnecessary interruptions. With a bulk opener, those pages can be launched quickly, allowing you to focus on the analysis itself.</p>
-                <p>The same applies to web development and testing. Developers often work across multiple environments and resources. During a typical workday, they may need to access project documentation, testing environments, dashboards, deployment tools, and application routes repeatedly. Reducing repetitive navigation can help maintain workflow momentum.</p>
-                <p>Researchers and students also benefit from opening multiple sources simultaneously. Academic projects, market research, journalism, and fact-checking often involve comparing information from several websites. Having all sources available together can make reviewing and cross-referencing information significantly easier.</p>
-                <p>Digital marketing professionals frequently manage multiple landing pages, campaign URLs, reporting tools, and client websites. Rather than switching back and forth between bookmarks or manually entering addresses, they can open all required resources from a prepared list.</p>
-                <p>One reason URL bulk openers remain popular is that they address a very practical need. They do not attempt to replace browsers or introduce complex workflows. Instead, they simplify a repetitive task that many internet users encounter regularly.</p>
-                <p>Modern browsers already support opening multiple tabs, but manually launching large collections of URLs can still be inconvenient. A dedicated bulk opener acts as a bridge between a list of URLs and a faster browsing workflow.</p>
-                <p>Another important consideration is browser behavior. Most browsers include built-in protections designed to prevent abusive pop-ups and unwanted tab generation. These safeguards help improve security and user experience. As a result, some browsers may require users to allow multiple tabs when opening large URL lists. This behavior is normal and is controlled by the browser rather than the tool itself.</p>
-                <p>The value of a URL Bulk Opener ultimately comes down to efficiency. Even small improvements in repetitive tasks can create noticeable productivity gains over time. Saving a few minutes each day may not seem significant, but those minutes accumulate across weeks and months of regular use.</p>
-                <p>Whether you're an SEO specialist, developer, marketer, researcher, student, business owner, or simply someone who frequently works with multiple websites, a bulk URL opener provides a practical solution for accessing information more efficiently.</p>
-               
+                <h2>Supported File Formats and Import Limits </h2>
+                <p>You don't have to copy and paste website addresses manually when working with large URL lists. Bulk url opener  allows you to import multiple URLs directly from different file formats, making it easier to organize and open website links in bulk.</p>
+                <p>The tool supports TXT, CSV, Excel, and Word documents, so you can use existing URL lists without having to prepare them in a specific format.</p>
+                
+                <div class="formats-block">
+                    <h3>Supported File Formats</h3>
+                    <ul class="formats-list">
+                        <li><strong>TXT Files (.txt):</strong> Import plain text files containing website addresses, with one URL per line.</li>
+                        <li><strong>CSV Files (.csv):</strong> Import URLs from a column named "URL" or "Link". If neither column is available, the tool automatically identifies cells containing addresses that start with <span class="format-highlight">http://</span> or <span class="format-highlight">https://</span>.</li>
+                        <li><strong>Excel Files (.xlsx, .xls):</strong> Upload Excel spreadsheets to extract website addresses from all worksheets. The tool recognizes hyperlink destinations as well as visible text containing <span class="format-highlight">http://</span>, <span class="format-highlight">https://</span>, or <span class="format-highlight">www..</span> Plain domain names, such as example.com, are not detected unless they are stored as hyperlinks.</li>
+                        <li><strong>Word Documents (.docx):</strong> Extract website addresses from document text, headers, footers, footnotes, and endnotes. Hyperlinks are also recognized, including links where the displayed text differs from the actual destination URL. Older <span class="format-highlight">.doc</span> files are not supported, so save them in <span class="format-highlight">.docx</span> format before importing.</li>
+                    </ul>
+                </div>
+
+                <h2>File Size and URL Import Limits</h2>
+                <p>To keep file imports manageable, each uploaded file can be up to 10 MB, with a maximum of 2000, unique URLs per import. Duplicate website addresses are not counted as separate unique URLs.</p>
+                <p>Files are processed locally in your browser. Excel and Word import features load their required readers from a public CDN the first time you use them, so an internet connection is needed for those imports. Your uploaded file contents are not sent to the CDN.</p>
+
+                <h2>Browser and URL Opening Limitations</h2>
+
+                <p>The number of browser tabs that can open at once depends on your browser and device. Opening a very large number of URLs together may affect browser performance, so processing links in smaller batches can be more manageable.</p>
+                <p>Also, whether a selected link opens as a webpage or triggers a file download depends on the destination website and how it handles that URL.</p>
 
                
             </section>
 
             <!-- How to Use Section -->
             <section id="how-to-use" class="how-to-use-section">
-                <h2>How to Use <span class="gradient-text">Url Bulk Opener</span></h2>
+                <h2>How to <span class="gradient-text">Open Multiple URLs</span> at once</h2>
                  
-                <p class="steps-intro">Using our URL bulk opener is very simple. Just follow these easy steps:</p>
-                
-                <div class="steps">
-                    <article class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h3>Paste Your URLs</h3>
-                            <p>Add one URL per line inside the input box.</p>
-                        </div>
-                    </article>
-                    <article class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h3>Review Your List</h3>
-                            <p>Check for duplicates, formatting issues, or unnecessary links before opening.</p>
-                        </div>
-                    </article>
-                    <article class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3> Open Multiple URLs</h3>
-                           <p>Click the open button and allow your browser to launch the links in separate tabs.</p>
-                        </div>
-                    </article>
-                    <article class="step">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <h3>Continue Your Work</h3>
-                           <p>Once the tabs are open, focus on research, testing, analysis, or any other task without repetitive navigation.</p>
-                        </div>
-                    </article>
+                <p>Opening website links one by one can take time, especially when you have a long list to go through. With bulk url opener, you can put those links together and open multiple URLs from a single place.</p>
+                <div class="how-to-media">
+                    <img src="how-to-open-multiple-urls.jpg" alt="how to open multiple urls">
                 </div>
 
-                <!-- Privacy & Secuirty -->
-                <section id="specialization" class="specialization-section">
-                    <h2>Privacy & <span class="gradient-text"> Security</span></h2>
-                    <p>Privacy is important whenever online tools are involved. Many users want to know how their URLs are handled and whether their browsing data is stored.</p>
-                    <p>A responsible URL Bulk Opener should be transparent about how it works. The purpose of the tool is to help users open multiple URLs efficiently, not to collect unnecessary information.</p>
-                    <p>Because users may work with research materials, testing environments, internal resources, or large collections of websites, maintaining user trust is essential. Clear communication about data handling practices helps users understand what happens when they use the tool.</p>
-                    <p>The goal is simple: provide a useful browsing utility while keeping the experience straightforward, secure, and focused on productivity.</p>
+                <div class="how-to-steps-container">
+                    <p class="steps-intro"><strong>Getting started doesn't require much. Just follow these steps:</strong></p>
+                    <ol class="how-to-steps-list">
+                        <li><strong>Copy Your Website Links:</strong> Collect the URLs you want to visit from your browser, spreadsheet, document, or any other source.</li>
+                        <li><strong>Paste the URLs:</strong> Add your copied links to the URL input box. You can enter multiple website addresses, with each URL on a separate line.</li>
+                        <li><strong>Submit Your List:</strong> Click the Submit button to process the links. The tool will display the recognized URLs for review.</li>
+                        <li><strong>Select the Links:</strong> Choose the website addresses you want to open. You don't have to open every URL in your list.</li>
+                        <li><strong>Open in New Tabs:</strong> Click the available opening option to launch your selected websites in separate browser tabs.</li>
+                    </ol>
+                </div>
 
-                   
-                   
-    
-                   
-                </section>
+                <p>That's it. You can use the same process whenever you need to open multiple website links without handling each address individually. These tools make your work smooth and time saving.</p>
+                <p>Keep in mind that your browser may block multiple new tabs if pop-up permissions are restricted. You may need to allow pop-ups for the website before opening your selected URLs.</p>
+
+
+
+                <h2>Remove Duplicate URLs from a List</h2>
+                <p>When working with a large list of website addresses, the same URL can sometimes appear more than once. Bulk Url Opener provides a Remove Duplicates option that helps clean up repeated entries before opening your links.</p>
+                <p>Once your URLs are added, click Remove Duplicates to remove repeated addresses from the list. You can then submit the remaining entries for validation and open the links you need. This is particularly useful when combining URLs collected from different sources.</p>
+                <p>You can also use Clear All to remove the current list and start with a new set of website addresses.</p>
+
+               
                 
                
                 <!-- Ready to Start Section -->
                 <div class="ready-to-start-section">
-                    <h3>Ready to start Url Bulk Opener ?</h3>
+                    <h3>Ready to start <span class="gradient-text">Bulk URL Opener?</span></h3>
                     <button class="btn btn-primary btn-large try-it-btn" onclick="scrollToUrlInput()">
                         Try It Now
                     </button>
@@ -410,104 +422,72 @@
                     <div class="faq-container">
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>1. What is a URL Bulk Opener?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
+                                <span>1. Is Bulk URL Opener free to use?</span>
                             </div>
                             <div class="faq-answer">
-                                <p>A URL Bulk Opener is a tool that helps users open multiple web pages at once instead of opening each link individually.</p>
+                                <p>Yes. You can use it at no cost and without creating an account.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>2. Is this tool free to use?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
+                                <span>2. How do I open multiple URLs at once?</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Yes. The tool is designed to provide a simple way to open multiple URLs without requiring complex setup.</p>
+                                <p>Paste your links into the input box, one per line, or import them from a file. Click Submit URLs to review the recognized links, select the ones you want and open them in new tabs.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>3. Do I need to create an account?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
+                                <span>3. Why are my links not opening?</span>
                             </div>
                             <div class="faq-answer">
-                                <p>No. Users can access the tool directly without creating an account.</p>
+                                <p>Most often, your browser is blocking multiple new tabs. Look for the blocked pop-up notice in the address bar and allow pop-ups for this site, then try again. Some links may also start a download instead of opening as a page, which depends on the destination website.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>4. Which browsers are supported?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
+                                <span>4. How many URLs can I open at once?</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Most modern browsers, including Chrome, Firefox, Edge, Safari, and Opera, support bulk URL opening functionality.</p>
+                                <p>You can import up to 2,000 unique URLs per file. How many tabs actually open at once depends on your browser and device, so for long lists it works better to open links in smaller batches.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>5. Why are some URLs not opening?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
+                                <span>5. Which file types can I import?</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Some browsers may block large numbers of tabs to protect users from unwanted pop-ups. Browser settings may need adjustment.</p>
+                                <p>You can import TXT, CSV, Excel (.xlsx, .xls) and Word (.docx) files. Each file can be up to 10 MB. Older .doc files are not supported, so save them as .docx first.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>6. Can I open hundreds of URLs at once?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
+                                <span>6. Does it remove duplicate links?</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Browser limitations may affect very large batches of URLs. Opening smaller groups often provides a better experience.</p>
+                                <p>Yes. Click Remove Duplicates to clean up repeated URLs before opening your list. Duplicates are also counted only once toward the import limit.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
                             <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>7. Is my data stored?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
+                                <span>7. What happens to invalid URLs?</span>
                             </div>
                             <div class="faq-answer">
-                                <p>The tool is intended to help users open URLs efficiently and should clearly communicate any data handling practices.</p>
+                                <p>Each entry is checked for a valid http:// or https:// format. Only URLs that pass validation are opened, and invalid entries are listed separately so you can fix them.</p>
                             </div>
                         </div>
                         
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>8. Can I use this for SEO research?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
-                            </div>
-                            <div class="faq-answer faq-answer-left">
-                                
-                                <p>Yes. Many SEO professionals use bulk URL openers when reviewing competitors, analyzing search results, and conducting website audits.</p>
-                            </div>
-                        </div>
+                       
                         
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>9. Does the tool work on mobile devices?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <p>Functionality may vary depending on the browser and device being used.</p>
-                            </div>
-                        </div>
                         
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
-                                <span>10. Who can benefit from this tool?</span>
-                                <i class="fas fa-chevron-down faq-arrow"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <p>Developers, marketers, researchers, students, QA testers, business owners, and anyone who regularly works with multiple URLs can benefit from using a bulk URL opener.</p>
-                            </div>
-                        </div>
+                        
+                        
                       
                     </div>
                 </div>
@@ -521,26 +501,30 @@
         <div class="main-container footer-grid footer-grid--with-social">
             <div class="footer-brand">
                 <div class="footer-logo">
-                    <img src="favicon-removebg-preview.png" alt="URL Bulk Opener" width="44" height="44">
-                    <span class="footer-site-name">URL Bulk Opener</span>
+                    <img src="icon-192.png" alt="URL Bulk Opener" width="44" height="44">
+                    <div class="logo">
+                <h3><a href="/index" id="siteTitle">Bulk URL <span>Opener</span></a></h3>
+            </div>
                 </div>
-                <p class="footer-tagline">Open multiple URLs instantly in separate tabs. Validate, select, and launch links in bulk to supercharge your workflow.</p>
+                <p class="footer-tagline">A free, browser-based tool for opening multiple URLs at once. Paste links or import TXT, CSV, Excel or Word files, remove duplicates and open valid URLs in new tabs.</p>
             </div>
             <div class="footer-col">
-                <h4 class="footer-heading">Quick Links</h4>
+                <h4 class="footer-heading">EXPLORE</h4>
                 <ul class="footer-list">
+                    <li><a href="/index">Home</a></li>
                     <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
                     <li><a href="/blog">Blog</a></li>
-                    <li><a href="/#how-to-use">How to Use</a></li>
-                    <li><a href="/privacy">Privacy Policy</a></li>
                     
                 </ul>
             </div>
             <div class="footer-col">
-                <h4 class="footer-heading">Support</h4>
+                <h4 class="footer-heading">LEGAL</h4>
                 <ul class="footer-list">
-                    <li>Need help or have questions?</li>
-                    <li><a href="/contact">Contact Us</a></li>
+                  
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                   <li><a href="/terms-and-conditions">Terms and Conditions</a></li>
+
                 </ul>
             </div>
             <div class="footer-col footer-col-social">
@@ -566,7 +550,7 @@
         </div>
         <div class="footer-bottom">
             <div class="main-container">
-                <p>&copy; 2025 URL Bulk Opener. All rights reserved.</p>
+                <p>&copy; 2026 Bulk URL Opener. All rights reserved.</p>
             </div>
         </div>
     </footer>
